@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Leonardo Ramirez-Lopez and Claudio Orellano">
+<meta name="dcterms.date" content="2026-06-25">
+
+<title>ProxiScout: Building applications</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+width: 0.8em;
+margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+}
+pre.numberSource { margin-left: 3em; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}</style>
+
+
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+</style>
+</head>
+
+<body>
+
+
+<header id="title-block-header">
+<h1 class="title">ProxiScout: Building applications</h1>
+<p class="author">Leonardo Ramirez-Lopez and Claudio Orellano</p>
+
+<p class="date">2026-06-25</p>
+</header>
+
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#setup" id="toc-setup"><span class="header-section-number">2</span> Setup</a></li>
+  <li><a href="#workflow-overview" id="toc-workflow-overview"><span class="header-section-number">3</span> Workflow overview</a>
+  <ul>
+  <li><a href="#prepare-spectral-data" id="toc-prepare-spectral-data"><span class="header-section-number">3.1</span> Prepare spectral data</a></li>
+  <li><a href="#define-preprocessing-recipe" id="toc-define-preprocessing-recipe"><span class="header-section-number">3.2</span> Define preprocessing recipe</a></li>
+  <li><a href="#build-calibration-model" id="toc-build-calibration-model"><span class="header-section-number">3.3</span> Build calibration model</a>
+  <ul>
+  <li><a href="#example-1-build-a-single-model" id="toc-example-1-build-a-single-model"><span class="header-section-number">3.3.1</span> Example 1: Build a single model</a></li>
+  <li><a href="#example-2-build-multiple-models-at-once-testing-different-pre-processings" id="toc-example-2-build-multiple-models-at-once-testing-different-pre-processings"><span class="header-section-number">3.3.2</span> Example 2: Build multiple models at once testing different pre-processings</a></li>
+  </ul></li>
+  <li><a href="#export-for-proxiscout" id="toc-export-for-proxiscout"><span class="header-section-number">3.4</span> Export for ProxiScout</a></li>
+  </ul></li>
+  <li><a href="#device-specific-considerations" id="toc-device-specific-considerations"><span class="header-section-number">4</span> Device-specific considerations</a></li>
+  <li><a href="#references" id="toc-references">References</a></li>
+  </ul>
+</nav>
+<h1 data-number="1" id="introduction"><span class="header-section-number">1</span> Introduction</h1>
+<p>ProxiScout applications consist of calibrated predictive models packaged in a device-compatible format. Unlike ProxiMate’s file-based structure (.nax, .cal, .prj), ProxiScout applications use JSON-based serialization synchronized through the NeoSpectra Portal.</p>
+<p>A typical ProxiScout workflow involves:</p>
+<ol type="1">
+<li><p>Loading and preparing spectral data</p></li>
+<li><p>Building and validating calibration models</p></li>
+<li><p>Preprocessing configuration matching device algorithms</p></li>
+<li><p>Exporting models in ProxiScout-compatible format</p></li>
+</ol>
+<p>See the ProxiScout Structure vignette for detailed information on application file formats and metadata.</p>
+<h1 data-number="2" id="setup"><span class="header-section-number">2</span> Setup</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;proximetricsR&quot;</span>)</span></code></pre></div>
+</div>
+<h1 data-number="3" id="workflow-overview"><span class="header-section-number">3</span> Workflow overview</h1>
+<h2 data-number="3.1" id="prepare-spectral-data"><span class="header-section-number">3.1</span> Prepare spectral data</h2>
+<p>Load your spectral data. Data should include:</p>
+<ul>
+<li><p>Spectral matrix (samples × wavenumbers)</p></li>
+<li><p>Reference property values (calibration targets)</p></li>
+<li><p>Sample metadata (optional)</p></li>
+</ul>
+<p>Here, a demo dataset from the <code>prospectr</code> package <span class="citation" data-cites="prospectr2026">(<a href="#ref-prospectr2026" role="doc-biblioref">Stevens and Ramirez-Lopez 2026</a>)</span>. This is used in these examples as it covers all the spectral regions measured by ProxiScout devices:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;NIRsoil&quot;</span>, <span class="at">package =</span> <span class="st">&quot;prospectr&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># NIRsoil is in nanometers and absorbance</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>mdata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">sampleName =</span> <span class="fu">rownames</span>(NIRsoil), </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Ciso =</span> NIRsoil<span class="sc">$</span>Ciso, </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Nt =</span> NIRsoil<span class="sc">$</span>Nt,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">CEC =</span> NIRsoil<span class="sc">$</span>CEC</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ProxiScout data comes in reflectance in percentages, so we convert to </span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># reflectance and scale to 0-100 range</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>mdata<span class="sc">$</span>spc <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="sc">*</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">10</span><span class="sc">^</span>(NIRsoil<span class="sc">$</span>spc)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Get wavelengths and convert from nm to wavenumbers (cm^-1)</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>wav_nm <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">colnames</span>(mdata<span class="sc">$</span>spc))</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>wav_cm <span class="ot">&lt;-</span> <span class="dv">10000000</span> <span class="sc">/</span> wav_nm</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Update column names to wavenumbers for ProxiScout compatibility</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(mdata<span class="sc">$</span>spc) <span class="ot">&lt;-</span> wav_cm</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">colnames</span>(mdata<span class="sc">$</span>spc))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] &quot;9090.90909090909&quot; &quot;9074.41016333938&quot; &quot;9057.97101449275&quot; &quot;9041.59132007233&quot;
+[5] &quot;9025.27075812274&quot; &quot;9009.00900900901&quot;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mdata) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;proxiscout_data&quot;</span>, <span class="fu">class</span>(mdata))</span></code></pre></div>
+</div>
+<p>ProxiScout works with wavenumbers (cm⁻¹) in the NeoSpectra range (~3922-7407 cm⁻¹). The NIRsoil data spans ~400-2500 nm (4000-25000 cm⁻¹), but resampling to the ProxiScout grid will retain only overlapping wavenumbers.</p>
+<h2 data-number="3.2" id="define-preprocessing-recipe"><span class="header-section-number">3.2</span> Define preprocessing recipe</h2>
+<p>ProxiScout supports device-specific preprocessing via the NeoSpectra wavenumber grid. Define your preprocessing sequence:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>recipe_01 <span class="ot">&lt;-</span> <span class="fu">preprocess_recipe</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep_resample</span>(<span class="at">grid =</span> <span class="st">&quot;proxiscout&quot;</span>), <span class="co"># necessary for almost all ProxiScout recipe</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep_derivative</span>(<span class="at">m =</span> <span class="dv">2</span>, <span class="at">w =</span> <span class="dv">9</span>, <span class="at">p =</span> <span class="dv">2</span>, <span class="at">algorithm =</span> <span class="st">&quot;savitzky-golay&quot;</span>),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep_snv</span>(),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">device =</span> <span class="st">&quot;proxiscout&quot;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>recipe_01</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Spectral preprocessing recipe (device: &quot;proxiscout&quot;): 
+ - Step 1: prep_resample
+ - Step 2: prep_derivative
+    m: 2; w: 9; p: 2; algorithm: &#39;savitzky-golay&#39;
+ - Step 3: prep_snv</code></pre>
+</div>
+</div>
+<p>Key points: - <code>prep_resample(grid = &quot;proxiscout&quot;)</code> resamples to the standard NeoSpectra wavenumber grid, retaining only overlapping wavenumbers</p>
+<ul>
+<li><p>Smoothing uses Savitzky-Golay (not moving-average)</p></li>
+<li><p>Derivatives support Savitzky-Golay or gap-segment algorithms</p></li>
+<li><p>Additional steps like <code>prep_detrend()</code>, <code>prep_transform()</code>, and <code>prep_wav_trim()</code> are available</p></li>
+<li><p>Data is already in absorbance, so no conversion needed</p></li>
+</ul>
+<h2 data-number="3.3" id="build-calibration-model"><span class="header-section-number">3.3</span> Build calibration model</h2>
+<h3 data-number="3.3.1" id="example-1-build-a-single-model"><span class="header-section-number">3.3.1</span> Example 1: Build a single model</h3>
+<p>Apply preprocessing and build the model:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model_c <span class="ot">&lt;-</span> <span class="fu">calibrate</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  Ciso <span class="sc">~</span> spc,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> mdata,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">preprocess =</span> recipe_01,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="fu">fit_plsr</span>(<span class="at">ncomp =</span> <span class="dv">12</span>, <span class="at">type =</span> <span class="st">&quot;modified&quot;</span>),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">calibration_control</span>(</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">validation_type =</span> <span class="st">&quot;kfold&quot;</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">number =</span> <span class="dv">5</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">seed =</span> <span class="dv">42</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<p>Check model performance:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model_c</span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_c)</span></code></pre></div>
+</div>
+<h4 data-number="3.3.1.1" id="serialize-the-model-for-deployment"><span class="header-section-number">3.3.1.1</span> Serialize the model for deployment</h4>
+<p>The model can be exported to ProxiScout format for deployment. Here we can see how that model is serialized:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>my_serialised_model_c <span class="ot">&lt;-</span> <span class="fu">proxiscout_write_model</span>(model_c, <span class="at">file =</span> <span class="cn">NULL</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>my_serialised_model_c</span></code></pre></div>
+</div>
+<p>To write the json file:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">proxiscout_write_model</span>(model_c, <span class="at">file =</span> <span class="st">&quot;my_model_c.json&quot;</span>)</span></code></pre></div>
+</div>
+<h3 data-number="3.3.2" id="example-2-build-multiple-models-at-once-testing-different-pre-processings"><span class="header-section-number">3.3.2</span> Example 2: Build multiple models at once testing different pre-processings</h3>
+<p>To test multiple preprocessing recipes and build multiple models at once, use the <code>calibrate_models()</code> function. This function allows you to specify a list of formulas, preprocessing recipes, and modeling methods to systematically evaluate different combinations.</p>
+<p>Here is an example of how to build multiple models at once:</p>
+<p>First, build the list of formulas representing the calibration models we need to build:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>my_formulas <span class="ot">&lt;-</span> <span class="fu">list</span>(Ciso <span class="sc">~</span> spc, CEC <span class="sc">~</span> spc)</span></code></pre></div>
+</div>
+<p>Now let’s define multiple preprocessing recipes to test. For example, we can compare the performance of a simple derivative-based recipe with a more complex one that includes wavenumber trimming:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>recipe_02 <span class="ot">&lt;-</span> <span class="fu">preprocess_recipe</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep_resample</span>(<span class="at">grid =</span> <span class="st">&quot;proxiscout&quot;</span>),</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep_derivative</span>(<span class="at">m =</span> <span class="dv">1</span>, <span class="at">w =</span> <span class="dv">7</span>, <span class="at">p =</span> <span class="dv">2</span>, <span class="at">algorithm =</span> <span class="st">&quot;savitzky-golay&quot;</span>),</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">device =</span> <span class="st">&quot;proxiscout&quot;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>recipe_03 <span class="ot">&lt;-</span> <span class="fu">preprocess_recipe</span>(</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep_resample</span>(<span class="at">grid =</span> <span class="st">&quot;proxiscout&quot;</span>),</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep_wav_trim</span>(</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">band =</span> <span class="fu">c</span>(<span class="dv">4000</span>, <span class="dv">7000</span>),</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">trim_constant_edges =</span> <span class="cn">TRUE</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep_derivative</span>(<span class="at">m =</span> <span class="dv">1</span>, <span class="at">w =</span> <span class="dv">7</span>, <span class="at">p =</span> <span class="dv">2</span>, <span class="at">algorithm =</span> <span class="st">&quot;savitzky-golay&quot;</span>),</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">device =</span> <span class="st">&quot;proxiscout&quot;</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>my_recipes <span class="ot">&lt;-</span> <span class="fu">list</span>(recipe_01, recipe_02, recipe_03)</span></code></pre></div>
+</div>
+<p>Define the multiple model fitting methods:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>my_fitting <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_plsr</span>(<span class="at">ncomp =</span> <span class="dv">12</span>, <span class="at">type =</span> <span class="st">&quot;modified&quot;</span>), </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_plsr</span>(<span class="at">ncomp =</span> <span class="dv">10</span>, <span class="at">type =</span> <span class="st">&quot;standard&quot;</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<p>Then, define the how to control the validations. This object will be used for all the models we are going to build:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>my_control <span class="ot">&lt;-</span> <span class="fu">calibration_control</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">validation_type =</span> <span class="st">&quot;kfold&quot;</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">number =</span> <span class="dv">5</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">remove_outliers =</span> <span class="dv">1</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">seed =</span> <span class="dv">42</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<p>Finally, build all the models at once:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>multiple_models <span class="ot">&lt;-</span> <span class="fu">calibrate_models</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">formulas =</span> my_formulas,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> mdata, </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">preprocess_recipes =</span> my_recipes,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">methods =</span> my_fitting,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">control =</span> my_control,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">save_all =</span> <span class="cn">TRUE</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>multiple_models</span></code></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Grid search results: 
+       formula recipe min property max property ncomp  rsq rmse
+1 * Ciso ~ spc      1          0.1         9.72     6 0.81 0.52
+2   Ciso ~ spc      2          0.1         8.03     5 0.69 0.69
+3   Ciso ~ spc      3          0.1         8.03     5 0.69 0.67
+4 * CEC ~ spc       1          1.4        39.00     6 0.62 2.92
+5   CEC ~ spc       2          1.0        38.90     7 0.61 3.03
+6   CEC ~ spc       3          1.0        38.90     7 0.62 2.97
+  largest_residual outliers         method
+1             3.38       35 PLS (standard)
+2             3.62       34 PLS (modified)
+3             3.44       38 PLS (modified)
+4            11.24       21 PLS (modified)
+5            14.40       22 PLS (standard)
+6            11.82       23 PLS (standard)
+ 
+*best model 
+---
+Suggested models: 
+Model:  Ciso ~ spc 
+Spectral preprocessing recipe (device: &quot;proxiscout&quot;): 
+ - Step 1: prep_resample
+ - Step 2: prep_derivative
+    m: 2; w: 9; p: 2; algorithm: &#39;savitzky-golay&#39;
+ - Step 3: prep_snv
+Method:  PLS (standard) 
+
+Model:  CEC ~ spc 
+Spectral preprocessing recipe (device: &quot;proxiscout&quot;): 
+ - Step 1: prep_resample
+ - Step 2: prep_derivative
+    m: 2; w: 9; p: 2; algorithm: &#39;savitzky-golay&#39;
+ - Step 3: prep_snv
+Method:  PLS (modified) </code></pre>
+</div>
+</div>
+<h4 data-number="3.3.2.1" id="serialize-the-multiple-models-for-deployment"><span class="header-section-number">3.3.2.1</span> Serialize the multiple models for deployment</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">proxiscout_write_model</span>(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  multiple_models<span class="sc">$</span>final_models<span class="sc">$</span><span class="st">`</span><span class="at">Ciso ~ spc</span><span class="st">`</span>, <span class="at">file =</span> <span class="st">&quot;my_model_c2.json&quot;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">proxiscout_write_model</span>(</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  multiple_models<span class="sc">$</span>final_models<span class="sc">$</span><span class="st">`</span><span class="at">CEC ~ spc</span><span class="st">`</span>, <span class="at">file =</span> <span class="st">&quot;my_model_cec.json&quot;</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<h2 data-number="3.4" id="export-for-proxiscout"><span class="header-section-number">3.4</span> Export for ProxiScout</h2>
+<p>Once satisfied with model performance, export to ProxiScout format. Refer to the Structure vignette for export details.</p>
+<h1 data-number="4" id="device-specific-considerations"><span class="header-section-number">4</span> Device-specific considerations</h1>
+<p><strong>NeoSpectra wavenumber grid:</strong> ProxiScout instruments measure at fixed wavenumber positions. Always resample to <code>&quot;proxiscout&quot;</code> grid when building models for deployment.</p>
+<p><strong>Algorithm selection:</strong> Choose from:</p>
+<ul>
+<li><p>Smoothing: Savitzky-Golay only</p></li>
+<li><p>Derivatives: Savitzky-Golay or gap-segment</p></li>
+<li><p>Additional: detrending, reflectance/absorbance conversion</p></li>
+</ul>
+<p><strong>Advanced preprocessing:</strong> ProxiScout’s broader algorithm support allows more flexible preprocessing pipelines compared to ProxiMate.</p>
+<h1 class="unnumbered" id="references">References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-prospectr2026" class="csl-entry" role="listitem">
+Stevens, Antoine, and Leornardo Ramirez-Lopez. 2026. <em>An Introduction to the Prospectr Package</em>.
+</div>
+</div>
+
+
+
+
+
+<script>!function(t,e){"function"==typeof define&&define.amd?define([],e()):"object"==typeof module&&module.exports?module.exports=e():function n(){document&&document.body?t.zenscroll=e():setTimeout(n,9)}()}(this,function(){"use strict";var t=function(t){return t&&"getComputedStyle"in window&&"smooth"===window.getComputedStyle(t)["scroll-behavior"]};if("undefined"==typeof window||!("document"in window))return{};var e=function(e,n,o){n=n||999,o||0===o||(o=9);var i,r=function(t){i=t},u=function(){clearTimeout(i),r(0)},c=function(t){return Math.max(0,e.getTopOf(t)-o)},a=function(o,i,c){if(u(),0===i||i&&i<0||t(e.body))e.toY(o),c&&c();else{var a=e.getY(),f=Math.max(0,o)-a,s=(new Date).getTime();i=i||Math.min(Math.abs(f),n),function t(){r(setTimeout(function(){var n=Math.min(1,((new Date).getTime()-s)/i),o=Math.max(0,Math.floor(a+f*(n<.5?2*n*n:n*(4-2*n)-1)));e.toY(o),n<1&&e.getHeight()+o<e.body.scrollHeight?t():(setTimeout(u,99),c&&c())},9))}()}},f=function(t,e,n){a(c(t),e,n)},s=function(t,n,i){var r=t.getBoundingClientRect().height,u=e.getTopOf(t)+r,s=e.getHeight(),l=e.getY(),d=l+s;c(t)<l||r+o>s?f(t,n,i):u+o>d?a(u-s+o,n,i):i&&i()},l=function(t,n,o,i){a(Math.max(0,e.getTopOf(t)-e.getHeight()/2+(o||t.getBoundingClientRect().height/2)),n,i)};return{setup:function(t,e){return(0===t||t)&&(n=t),(0===e||e)&&(o=e),{defaultDuration:n,edgeOffset:o}},to:f,toY:a,intoView:s,center:l,stop:u,moving:function(){return!!i},getY:e.getY,getTopOf:e.getTopOf}},n=document.documentElement,o=function(){return window.scrollY||n.scrollTop},i=e({body:document.scrollingElement||document.body,toY:function(t){window.scrollTo(0,t)},getY:o,getHeight:function(){return window.innerHeight||n.clientHeight},getTopOf:function(t){return t.getBoundingClientRect().top+o()-n.offsetTop}});if(i.createScroller=function(t,o,i){return e({body:t,toY:function(e){t.scrollTop=e},getY:function(){return t.scrollTop},getHeight:function(){return Math.min(t.clientHeight,window.innerHeight||n.clientHeight)},getTopOf:function(t){return t.offsetTop}},o,i)},"addEventListener"in window&&!window.noZensmooth&&!t(document.body)){var r="history"in window&&"pushState"in history,u=r&&"scrollRestoration"in history;u&&(history.scrollRestoration="auto"),window.addEventListener("load",function(){u&&(setTimeout(function(){history.scrollRestoration="manual"},9),window.addEventListener("popstate",function(t){t.state&&"zenscrollY"in t.state&&i.toY(t.state.zenscrollY)},!1)),window.location.hash&&setTimeout(function(){var t=i.setup().edgeOffset;if(t){var e=document.getElementById(window.location.href.split("#")[1]);if(e){var n=Math.max(0,i.getTopOf(e)-t),o=i.getY()-n;0<=o&&o<9&&window.scrollTo(0,n)}}},9)},!1);var c=new RegExp("(^|\\s)noZensmooth(\\s|$)");window.addEventListener("click",function(t){for(var e=t.target;e&&"A"!==e.tagName;)e=e.parentNode;if(!(!e||1!==t.which||t.shiftKey||t.metaKey||t.ctrlKey||t.altKey)){if(u){var n=history.state&&"object"==typeof history.state?history.state:{};n.zenscrollY=i.getY();try{history.replaceState(n,"")}catch(t){}}var o=e.getAttribute("href")||"";if(0===o.indexOf("#")&&!c.test(e.className)){var a=0,f=document.getElementById(o.substring(1));if("#"!==o){if(!f)return;a=i.getTopOf(f)}t.preventDefault();var s=function(){window.location=o},l=i.setup().edgeOffset;l&&(a=Math.max(0,a-l),r&&(s=function(){history.pushState({},"",o)})),i.toY(a,null,s)}}},!1)}return i});</script>
+</body></html>

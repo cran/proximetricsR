@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mai Said and Leonardo Ramirez-Lopez">
+<meta name="dcterms.date" content="2026-06-25">
+
+<title>ProxiScout: Structure of the applications</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+width: 0.8em;
+margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+}
+pre.numberSource { margin-left: 3em; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+</style>
+</head>
+
+<body>
+
+
+<header id="title-block-header">
+<h1 class="title">ProxiScout: Structure of the applications</h1>
+<p class="author">Mai Said and Leonardo Ramirez-Lopez</p>
+
+<p class="date">2026-06-25</p>
+</header>
+
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#proxiscout-predictive-application-package" id="toc-proxiscout-predictive-application-package"><span class="header-section-number">2</span> ProxiScout predictive application package</a>
+  <ul>
+  <li><a href="#overview" id="toc-overview"><span class="header-section-number">2.1</span> Overview</a></li>
+  <li><a href="#deployment-workflow" id="toc-deployment-workflow"><span class="header-section-number">2.2</span> Deployment workflow</a></li>
+  </ul></li>
+  <li><a href="#operations.json" id="toc-operations.json"><span class="header-section-number">3</span> <code>operations.json</code></a>
+  <ul>
+  <li><a href="#purpose" id="toc-purpose"><span class="header-section-number">3.1</span> Purpose</a></li>
+  <li><a href="#file-structure" id="toc-file-structure"><span class="header-section-number">3.2</span> File structure</a>
+  <ul>
+  <li><a href="#operation-object" id="toc-operation-object"><span class="header-section-number">3.2.1</span> Operation Object</a></li>
+  <li><a href="#example" id="toc-example"><span class="header-section-number">3.2.2</span> Example</a></li>
+  </ul></li>
+  <li><a href="#execution-model" id="toc-execution-model"><span class="header-section-number">3.3</span> Execution model</a></li>
+  <li><a href="#proximetricsr-function-reference" id="toc-proximetricsr-function-reference"><span class="header-section-number">3.4</span> <code>proximetricsR</code> function reference</a>
+  <ul>
+  <li><a href="#spectra-scale-id-37" id="toc-spectra-scale-id-37"><span class="header-section-number">3.4.1</span> Spectra scale (ID: 37)</a></li>
+  <li><a href="#get-absorbance-id-29" id="toc-get-absorbance-id-29"><span class="header-section-number">3.4.2</span> Get absorbance (ID: 29)</a></li>
+  <li><a href="#average-readings-id-7" id="toc-average-readings-id-7"><span class="header-section-number">3.4.3</span> Average readings (ID: 7)</a></li>
+  <li><a href="#snv-id-2" id="toc-snv-id-2"><span class="header-section-number">3.4.4</span> SNV (ID: 2)</a></li>
+  <li><a href="#detrending-id-3" id="toc-detrending-id-3"><span class="header-section-number">3.4.5</span> Detrending (ID: 3)</a></li>
+  <li><a href="#savitzky-golay-smoothing-and-differentiation-id-83" id="toc-savitzky-golay-smoothing-and-differentiation-id-83"><span class="header-section-number">3.4.6</span> Savitzky-Golay smoothing and differentiation (ID: 83)</a></li>
+  <li><a href="#variable-selection-id-17" id="toc-variable-selection-id-17"><span class="header-section-number">3.4.7</span> Variable selection (ID: 17)</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#model_info.json" id="toc-model_info.json"><span class="header-section-number">4</span> <code>model_info.json</code></a>
+  <ul>
+  <li><a href="#purpose-1" id="toc-purpose-1"><span class="header-section-number">4.1</span> Purpose</a></li>
+  <li><a href="#contents" id="toc-contents"><span class="header-section-number">4.2</span> Contents</a>
+  <ul>
+  <li><a href="#example-1" id="toc-example-1"><span class="header-section-number">4.2.1</span> Example</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+<style>
+.indented-block {
+margin-left: 4em;
+}
+</style>
+<style>
+li.no-marker, li:has(> p > .no-marker) {
+list-style: none;
+}
+</style>
+<h1 data-number="1" id="introduction"><span class="header-section-number">1</span> Introduction</h1>
+<p>This package can also be used to build and/or update NIR applications that are ready to be consumed by the <a href="https://www.buchi.com/en/products/instruments/proxiscout">ProxiScout handheld NIR sensors</a> manufactured by BUCHI Labortechnik AG. Once an application is installed in a ProxiScout device, it can be used to predict the properties of a given matrix using the spectral models contained in that application.</p>
+<p>This package builds upon the standard structure of the ProxiScout applications, which are conventionally developed with the compiled-executable software “BUCHI Modeller” offered by BUCHI. Therefore, the files output by <code>proximetricsR</code> follow the same structure of the ones output by “BUCHI Modeller”. No changes or improvements on these output files have been conducted for the development of <code>proximetricsR</code>.</p>
+<p>ProxiScout applications differ from ProxiMate applications in their internal file format: a ProxiScout application consists of two JSON files (<code>operations.json</code> and <code>model_info.json</code>) that are uploaded to the NeoSpectra Portal and subsequently synchronised to the ScanApp Mobile Application, where predictions are executed locally on the mobile device.</p>
+<h1 data-number="2" id="proxiscout-predictive-application-package"><span class="header-section-number">2</span> ProxiScout predictive application package</h1>
+<h2 data-number="2.1" id="overview"><span class="header-section-number">2.1</span> Overview</h2>
+<p>A ProxiScout predictive application is deployed through the NeoSpectra ecosystem and consists of two JSON files:</p>
+<ul>
+<li><p><code>Operations.json</code>: Defines the ordered modeling workflow, including preprocessing, variable selection, and predictive model execution.</p></li>
+<li><p><code>Model_Info.json</code>: Contains model metadata, performance statistics, and application configuration settings.</p></li>
+</ul>
+<p>Together, these files define the predictive workflow and configuration required for deployment. The application package is uploaded to the NeoSpectra Portal and synchronized to the ScanApp Mobile Application, where predictions are executed locally on the mobile device.</p>
+<h2 data-number="2.2" id="deployment-workflow"><span class="header-section-number">2.2</span> Deployment workflow</h2>
+<ol type="1">
+<li><p>The predictive application package is generated as:</p>
+<ul>
+<li><p><code>operations.json</code></p></li>
+<li><p><code>model_info.json</code></p></li>
+</ul></li>
+<li><p>The files are uploaded to the NeoSpectra Portal.</p></li>
+<li><p>The application is synchronized to the ScanApp Mobile Application.</p></li>
+<li><p>ScanApp downloads the application configuration and executes the predictive workflow during sample analysis.</p></li>
+</ol>
+<h1 data-number="3" id="operations.json"><span class="header-section-number">3</span> <code>operations.json</code></h1>
+<h2 data-number="3.1" id="purpose"><span class="header-section-number">3.1</span> Purpose</h2>
+<p>The <code>operations.json</code> file defines the complete modeling pipeline used to transform raw spectral measurements into prediction results.</p>
+<p>The pipeline consists of a sequence of operations executed in a predefined order. These operations may represent spectral preprocessing, variable selection, feature extraction, scaling, regression, classification, or any other modeling step required by the predictive application.</p>
+<h2 data-number="3.2" id="file-structure"><span class="header-section-number">3.2</span> File structure</h2>
+<p>The file contains an ordered collection of operation objects.</p>
+<h3 data-number="3.2.1" id="operation-object"><span class="header-section-number">3.2.1</span> Operation Object</h3>
+<p>Each operation is represented by a JSON object containing the following fields:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 29%">
+<col style="width: 41%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>id</code></td>
+<td>Integer</td>
+<td>Unique identifier representing the operation type.</td>
+</tr>
+<tr class="even">
+<td><code>index</code></td>
+<td>Integer</td>
+<td>Execution order of the operation within the modeling pipeline.</td>
+</tr>
+<tr class="odd">
+<td><code>params</code></td>
+<td>Array</td>
+<td>List of operation-specific parameters required during execution.</td>
+</tr>
+</tbody>
+</table>
+<h3 data-number="3.2.2" id="example"><span class="header-section-number">3.2.2</span> Example</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">83</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;params&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="fl">9.0</span><span class="ot">,</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="fl">3.0</span><span class="ot">,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="fl">1.0</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;index&quot;</span><span class="fu">:</span> <span class="dv">5</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h2 data-number="3.3" id="execution-model"><span class="header-section-number">3.3</span> Execution model</h2>
+<p>Operations are executed sequentially according to the value of the <code>index</code> field.</p>
+<p>Each operation receives the output of the previous operation as input and produces output that is passed to the next operation in the pipeline.</p>
+<p>The modeling workflow may include operations for:</p>
+<ul>
+<li>Spectral preprocessing</li>
+<li>Variable selection</li>
+<li>Data transformation and scaling</li>
+<li>Regression or classification</li>
+<li>Post-processing of prediction results</li>
+</ul>
+<h2 data-number="3.4" id="proximetricsr-function-reference"><span class="header-section-number">3.4</span> <code>proximetricsR</code> function reference</h2>
+<p>When using <code>proximetricsR</code> to build ProxiScout applications, preprocessing steps are automatically serialized to the correct JSON format. This reference maps <code>proximetricsR</code> preprocessing functions to their corresponding ProxiScout operation IDs and JSON structure:</p>
+<h3 data-number="3.4.1" id="spectra-scale-id-37"><span class="header-section-number">3.4.1</span> Spectra scale (ID: 37)</h3>
+<ul>
+<li><p><code>proximetricsR</code>: None (spectra must be provided in reflectance, 0–100%)</p></li>
+<li><p>Requires params: Yes (scale factor)</p></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">37</span><span class="fu">,</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;params&quot;</span><span class="fu">:</span> <span class="fl">0.01</span><span class="fu">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;index&quot;</span><span class="fu">:</span> <span class="dv">0</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h3 data-number="3.4.2" id="get-absorbance-id-29"><span class="header-section-number">3.4.2</span> Get absorbance (ID: 29)</h3>
+<ul>
+<li><p><code>proximetricsR</code>: <code>prep_transform()</code></p></li>
+<li><p>Requires params: No</p></li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">29</span><span class="fu">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;params&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;index&quot;</span><span class="fu">:</span> <span class="dv">5</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h3 data-number="3.4.3" id="average-readings-id-7"><span class="header-section-number">3.4.3</span> Average readings (ID: 7)</h3>
+<ul>
+<li><p><code>proximetricsR</code>: None</p></li>
+<li><p>Requires params: No</p></li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">7</span><span class="fu">,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;params&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;index&quot;</span><span class="fu">:</span> <span class="dv">12</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h3 data-number="3.4.4" id="snv-id-2"><span class="header-section-number">3.4.4</span> SNV (ID: 2)</h3>
+<ul>
+<li><p><code>proximetricsR</code>: <code>prep_snv()</code></p></li>
+<li><p>Requires params: No</p></li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;params&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;index&quot;</span><span class="fu">:</span> <span class="dv">0</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h3 data-number="3.4.5" id="detrending-id-3"><span class="header-section-number">3.4.5</span> Detrending (ID: 3)</h3>
+<ul>
+<li><p><code>proximetricsR</code>: <code>prep_detrend()</code></p></li>
+<li><p>Requires params: Yes (detrending degree)</p></li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">3</span><span class="fu">,</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;params&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="dv">2</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;index&quot;</span><span class="fu">:</span> <span class="dv">3</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h3 data-number="3.4.6" id="savitzky-golay-smoothing-and-differentiation-id-83"><span class="header-section-number">3.4.6</span> Savitzky-Golay smoothing and differentiation (ID: 83)</h3>
+<ul>
+<li><p><code>proximetricsR</code>: <code>prep_derivative(algorithm = &quot;savitzky-golay&quot;)</code> or <code>prep_smooth(algorithm = &quot;savitzky-golay&quot;)</code></p></li>
+<li><p>Requires params: Yes (window length, polynomial order, derivative order, coefficients)</p></li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">83</span><span class="fu">,</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;params&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="fl">9.0</span><span class="ot">,</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="fl">7.0</span><span class="ot">,</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        <span class="fl">1.0</span><span class="ot">,</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="fl">105.0</span><span class="ot">,</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="fl">1.0</span><span class="ot">,</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        <span class="fl">0.0</span><span class="ot">,</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="fl">-0.0035</span><span class="ot">,</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="fl">0.038</span><span class="ot">,</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="fl">-0.20</span><span class="ot">,</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        <span class="fl">0.8</span><span class="ot">,</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        <span class="fl">8.22e-15</span><span class="ot">,</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        <span class="fl">-0.8</span><span class="ot">,</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        <span class="fl">0.2</span><span class="ot">,</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        <span class="fl">-0.038</span><span class="ot">,</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        <span class="fl">0.0035</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;index&quot;</span><span class="fu">:</span> <span class="dv">5</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h3 data-number="3.4.7" id="variable-selection-id-17"><span class="header-section-number">3.4.7</span> Variable selection (ID: 17)</h3>
+<ul>
+<li><p><code>proximetricsR</code>: <code>prep_wav_trim()</code></p></li>
+<li><p>Requires params: Yes (selected variable indices)</p></li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">17</span><span class="fu">,</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;params&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="dv">17</span><span class="ot">,</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="dv">18</span><span class="ot">,</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="dv">19</span><span class="ot">,</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="dv">200</span><span class="ot">,</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        <span class="dv">201</span><span class="ot">,</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        <span class="dv">202</span><span class="ot">,</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        <span class="dv">203</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;index&quot;</span><span class="fu">:</span> <span class="dv">12</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h1 data-number="4" id="model_info.json"><span class="header-section-number">4</span> <code>model_info.json</code></h1>
+<h2 data-number="4.1" id="purpose-1"><span class="header-section-number">4.1</span> Purpose</h2>
+<p>The <code>model_info.json</code> file contains metadata associated with the predictive model and application configuration.</p>
+<p>This information is used by ScanApp to display model information, configure measurement acquisition settings, and provide model performance statistics.</p>
+<h2 data-number="4.2" id="contents"><span class="header-section-number">4.2</span> Contents</h2>
+<p>The file contains:</p>
+<ul>
+<li>Model performance metrics for calibration, cross-validation, and testing</li>
+<li>Prediction range information</li>
+<li>Dataset statistics used during model development</li>
+<li>Measurement and prediction averaging settings</li>
+<li>Application execution configuration</li>
+</ul>
+<h3 data-number="4.2.1" id="example-1"><span class="header-section-number">4.2.1</span> Example</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;executionOrder&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;RMSECalib&quot;</span><span class="fu">:</span> <span class="fl">0.58</span><span class="fu">,</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;R2Calib&quot;</span><span class="fu">:</span> <span class="fl">0.814</span><span class="fu">,</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;RMSECV&quot;</span><span class="fu">:</span> <span class="fl">0.701</span><span class="fu">,</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;R2CV&quot;</span><span class="fu">:</span> <span class="fl">0.73</span><span class="fu">,</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;BiasCV&quot;</span><span class="fu">:</span> <span class="fl">0.013</span><span class="fu">,</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;RPDCV&quot;</span><span class="fu">:</span> <span class="fl">1.925</span><span class="fu">,</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;RMSETest&quot;</span><span class="fu">:</span> <span class="fl">0.598</span><span class="fu">,</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;R2Test&quot;</span><span class="fu">:</span> <span class="fl">0.947</span><span class="fu">,</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;BiasTest&quot;</span><span class="fu">:</span> <span class="fl">0.145</span><span class="fu">,</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;RPDTest&quot;</span><span class="fu">:</span> <span class="fl">2.804</span><span class="fu">,</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;avgReadings&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;avgPredictions&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;minValue&quot;</span><span class="fu">:</span> <span class="fl">3.1</span><span class="fu">,</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;maxValue&quot;</span><span class="fu">:</span> <span class="fl">9.5</span><span class="fu">,</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;NumberOfSamples&quot;</span><span class="fu">:</span> <span class="dv">119</span><span class="fu">,</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;NumberOfMeasurements&quot;</span><span class="fu">:</span> <span class="dv">6</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+
+
+
+
+
+<script>!function(t,e){"function"==typeof define&&define.amd?define([],e()):"object"==typeof module&&module.exports?module.exports=e():function n(){document&&document.body?t.zenscroll=e():setTimeout(n,9)}()}(this,function(){"use strict";var t=function(t){return t&&"getComputedStyle"in window&&"smooth"===window.getComputedStyle(t)["scroll-behavior"]};if("undefined"==typeof window||!("document"in window))return{};var e=function(e,n,o){n=n||999,o||0===o||(o=9);var i,r=function(t){i=t},u=function(){clearTimeout(i),r(0)},c=function(t){return Math.max(0,e.getTopOf(t)-o)},a=function(o,i,c){if(u(),0===i||i&&i<0||t(e.body))e.toY(o),c&&c();else{var a=e.getY(),f=Math.max(0,o)-a,s=(new Date).getTime();i=i||Math.min(Math.abs(f),n),function t(){r(setTimeout(function(){var n=Math.min(1,((new Date).getTime()-s)/i),o=Math.max(0,Math.floor(a+f*(n<.5?2*n*n:n*(4-2*n)-1)));e.toY(o),n<1&&e.getHeight()+o<e.body.scrollHeight?t():(setTimeout(u,99),c&&c())},9))}()}},f=function(t,e,n){a(c(t),e,n)},s=function(t,n,i){var r=t.getBoundingClientRect().height,u=e.getTopOf(t)+r,s=e.getHeight(),l=e.getY(),d=l+s;c(t)<l||r+o>s?f(t,n,i):u+o>d?a(u-s+o,n,i):i&&i()},l=function(t,n,o,i){a(Math.max(0,e.getTopOf(t)-e.getHeight()/2+(o||t.getBoundingClientRect().height/2)),n,i)};return{setup:function(t,e){return(0===t||t)&&(n=t),(0===e||e)&&(o=e),{defaultDuration:n,edgeOffset:o}},to:f,toY:a,intoView:s,center:l,stop:u,moving:function(){return!!i},getY:e.getY,getTopOf:e.getTopOf}},n=document.documentElement,o=function(){return window.scrollY||n.scrollTop},i=e({body:document.scrollingElement||document.body,toY:function(t){window.scrollTo(0,t)},getY:o,getHeight:function(){return window.innerHeight||n.clientHeight},getTopOf:function(t){return t.getBoundingClientRect().top+o()-n.offsetTop}});if(i.createScroller=function(t,o,i){return e({body:t,toY:function(e){t.scrollTop=e},getY:function(){return t.scrollTop},getHeight:function(){return Math.min(t.clientHeight,window.innerHeight||n.clientHeight)},getTopOf:function(t){return t.offsetTop}},o,i)},"addEventListener"in window&&!window.noZensmooth&&!t(document.body)){var r="history"in window&&"pushState"in history,u=r&&"scrollRestoration"in history;u&&(history.scrollRestoration="auto"),window.addEventListener("load",function(){u&&(setTimeout(function(){history.scrollRestoration="manual"},9),window.addEventListener("popstate",function(t){t.state&&"zenscrollY"in t.state&&i.toY(t.state.zenscrollY)},!1)),window.location.hash&&setTimeout(function(){var t=i.setup().edgeOffset;if(t){var e=document.getElementById(window.location.href.split("#")[1]);if(e){var n=Math.max(0,i.getTopOf(e)-t),o=i.getY()-n;0<=o&&o<9&&window.scrollTo(0,n)}}},9)},!1);var c=new RegExp("(^|\\s)noZensmooth(\\s|$)");window.addEventListener("click",function(t){for(var e=t.target;e&&"A"!==e.tagName;)e=e.parentNode;if(!(!e||1!==t.which||t.shiftKey||t.metaKey||t.ctrlKey||t.altKey)){if(u){var n=history.state&&"object"==typeof history.state?history.state:{};n.zenscrollY=i.getY();try{history.replaceState(n,"")}catch(t){}}var o=e.getAttribute("href")||"";if(0===o.indexOf("#")&&!c.test(e.className)){var a=0,f=document.getElementById(o.substring(1));if("#"!==o){if(!f)return;a=i.getTopOf(f)}t.preventDefault();var s=function(){window.location=o},l=i.setup().edgeOffset;l&&(a=Math.max(0,a-l),r&&(s=function(){history.pushState({},"",o)})),i.toY(a,null,s)}}},!1)}return i});</script>
+</body></html>

@@ -174,4 +174,3 @@ test_that("calibration_control 'cal_residual_limit' must be numerical", {
 test_that("calibration_control 'val_residual_limit' must be numerical", {
   expect_error(calibration_control(val_residual_limit = ""), "'val_residual_limit' must be numerical.")
 })
-

@@ -79,7 +79,6 @@ test_that("Reference values cannot all be not available", {
 
 
 test_that("validations work", {
-
   # Check issues
   expect_error(validate_prediction(preds, cbind(rep(NIRcannabis$CBDA[skips], 2))))
   expect_error(validate_prediction(preds, rbind(rep(NIRcannabis$CBDA[skips], 2))))

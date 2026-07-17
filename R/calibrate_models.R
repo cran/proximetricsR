@@ -12,21 +12,19 @@
 #'
 #' @usage
 #'
-#' calibrate_models(
-#'   formulas,
-#'   data, group = NULL,
-#'   preprocess_recipes,
-#'   methods,
-#'   control = calibration_control(seed = 1),
-#'   metadata_list = NULL,
-#'   skip_indices_list = NULL,
-#'   return_inputs = TRUE,
-#'   ...,
-#'   na_action = na.pass,
-#'   verbose = TRUE,
-#'   save_all = FALSE
-#' )
-#'
+#' calibrate_models(formulas,
+#'                  data, group = NULL,
+#'                  preprocess_recipes,
+#'                  methods,
+#'                  control = calibration_control(seed = 1),
+#'                  metadata_list = NULL,
+#'                  skip_indices_list = NULL,
+#'                  return_inputs = TRUE,
+#'                  ...,
+#'                  na_action = na.pass,
+#'                  verbose = TRUE,
+#'                  save_all = FALSE)
+#' 
 #' \method{predict}{spectral_multimodel}(object, newdata, verbose = TRUE, ...)
 #'
 #' @param formulas a list containing one or more objects of class
@@ -216,7 +214,6 @@ calibrate_models <- function(formulas,
                              na_action = na.pass,
                              verbose = TRUE,
                              save_all = FALSE) {
-
   final_model_name <- "final_model|refitted_model"
 
   if (any(duplicated(formulas))) {
@@ -449,14 +446,14 @@ print.spectral_multimodel <- function(x, ...) {
     ith_recipe <- x$results_grid$recipe[i]
     fs <- x$preprocess_recipes[[ith_recipe]]
     cat(
-      .bold_italic(paste0("Model: ")), 
-      .bold_red(as.character(x$results_grid$formula[i]), prefix = ""), 
+      .bold_italic(paste0("Model: ")),
+      .bold_red(as.character(x$results_grid$formula[i]), prefix = ""),
       "\n"
     )
     print(fs)
     cat(
-      .bold_italic(paste0("Method: ")), 
-      .bold_red(x$results_grid$method[i], prefix = ""), 
+      .bold_italic(paste0("Method: ")),
+      .bold_red(x$results_grid$method[i], prefix = ""),
       "\n\n"
     )
   }
@@ -467,12 +464,12 @@ print.spectral_multimodel <- function(x, ...) {
 #' @export
 predict.spectral_multimodel <- function(object, newdata, verbose = TRUE, ...) {
   preds <- lapply(object$final_models,
-                  FUN = function(x, new, verbose) {
-                    if (verbose) cat(paste0(x$target_variable, ": \n"))
-                    predict(x, new, verbose = verbose)
-                  },
-                  new = newdata,
-                  verbose = verbose
+    FUN = function(x, new, verbose) {
+      if (verbose) cat(paste0(x$target_variable, ": \n"))
+      predict(x, new, verbose = verbose)
+    },
+    new = newdata,
+    verbose = verbose
   )
   minfo <- lapply(preds, FUN = function(x) x$model_information)
   mpreds <- sapply(preds, FUN = function(x) x$predictions)

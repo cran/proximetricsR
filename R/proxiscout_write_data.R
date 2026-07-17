@@ -28,26 +28,26 @@
 #' which are usable by ProxiScout-related software. These files are named according
 #' to the `file_prefix` argument and contain the spectra together with the sample
 #' names and device ID, respectively the reference values with the sample names.
-#' 
+#'
 #' Typically, the data provided to this function is imported with \code{\link{proxiscout_read_data}}
 #' and of class `"proxiscout_data"`, but it is also possible to construct a `data.frame`
 #' by hand and provide it to this function.
-#' 
+#'
 #' The `properties` argument specifies which columns in `x` are the reference values
 #' written to the `[file_prefix]_properties.csv` file. If empty (default), this
 #' file is not created, as it would only contain sample names. Any row in the
 #' provided properties that only contains `NA` values are dropped. In general,
 #' `NA` values are set to an empty string (`""`)
-#' 
+#'
 #' The sample names are detected automatically from `x` as the column with a name
 #' that contains `"sample"`. If none are detected, the function will throw an
 #' error. This column will be named `"Sample Name"` in the `[file_prefix]_spectra.csv`
 #' file, and `"sampleName"` in the `[file_prefix]_properties.csv` file.
-#' 
+#'
 #' Similarly, the device ID is a required column and is identified as having a
 #' `"device"` string inside the name of the column. This column is only written into
 #' the `[file_prefix]_spectra.csv` file, with a fixed named `"Device Id"`.
-#' 
+#'
 #' All other columns in either file only correspond to the spectra respectively
 #' the reference values. In particular, other columns in `x` are dropped.
 #'
@@ -81,8 +81,8 @@ proxiscout_write_data <- function(x, path, file_prefix = "proxiscout_export", pr
   # Throw an error if no device or scanner column is detected
   if (length(device_col_index) < 1) stop("No device or scanner column detected.")
   device_col <- x[, device_col_index[1]]
-  
-  
+
+
   # Write the spectra file, containing columns "Sample Name", "Device Id", and
   # columns with numerical values in the header for the spectra
   file_paths <- file.path(path, paste0(file_prefix, "_spectra.csv"))
@@ -92,7 +92,7 @@ proxiscout_write_data <- function(x, path, file_prefix = "proxiscout_export", pr
     x[[spc]] * 100, # Multiply by 100; to have values between 0 and 100
     check.names = FALSE
   )
-  
+
   if (!is.null(properties)) {
     file_paths <- c(file_paths, file.path(path, paste0(file_prefix, "_properties.csv")))
     # For the references, we do not want to put repetitions into the file, so we
@@ -117,6 +117,6 @@ proxiscout_write_data <- function(x, path, file_prefix = "proxiscout_export", pr
     quote = FALSE,
     na = ""
   )
-  
+
   invisible(file_paths)
 }

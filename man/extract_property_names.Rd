@@ -7,7 +7,8 @@
 extract_property_names(x)
 }
 \arguments{
-\item{x}{a \code{data.frame}, as normally obtained by \code{\link{proximate_read_data}}, \code{\link{read_spc}},
+\item{x}{a \code{data.frame}, as normally obtained by
+\code{\link{proximate_read_data}}, \code{\link{read_spc}},
 \code{\link{proxiscout_read_data}}, or some other data parsing function.}
 }
 \value{

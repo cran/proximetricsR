@@ -24,7 +24,7 @@ data_noprops <- proximate_data(
 test_that("non-property-related values are correctly copied", {
   delete_ref_orig <- which(names(NIRcannabis) %in% c("Reference", colnames(properties)))
   delete_ref_copy <- which(names(data_copy) %in% c("Reference", colnames(properties)))
-  
+
   expect_identical(NIRcannabis[, -delete_ref_orig], data_copy[, -delete_ref_copy])
   expect_identical(NIRcannabis[, -(8:13)], data_noprops[, -(8:9)])
 })
@@ -223,4 +223,3 @@ test_that("Spectra and properties must have the same number of rows, 'spc.' is i
     "'spc' and 'properties' must have the same number of rows."
   )
 })
-

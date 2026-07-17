@@ -21,7 +21,6 @@
 #' @keywords internal
 
 sample_stratified <- function(y, p, number, group = NULL, replacement = FALSE, seed = NULL) {
-
   ## If the percentage of samples to build the hold_in subset is below 50% of
   ## the total number of samples, the selection is based on the number of samples
   ## to retain.
@@ -535,8 +534,6 @@ get_samples_from_strata <- function(y,
   )
   strata_samples
 }
-
-
 
 
 get_quartile_samples <- function(y, n) {

@@ -11,7 +11,7 @@ old_options <- options(digits = 3)
 
 ## ----loadlib, results = 'hide', include = FALSE-------------------------------
 if (!requireNamespace("proximetricsR", quietly = TRUE)) {
-  devtools::load_all()
+  pkgload::load_all()
 }
 library("proximetricsR")
 

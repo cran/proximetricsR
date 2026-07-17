@@ -368,7 +368,7 @@ proximate_read_cal <- function(file, ignore_version = FALSE) {
       mrecipe <- do.call(preprocess_recipe, preprocessing)
       if (length(mrecipe) == 0) {
         mrecipe$preprocessing_order <- "none"
-      } 
+      }
       cal_summary[which(i == file), "Property"] <- property
       cal_summary[which(i == file), "Preprocessing"] <- mrecipe$preprocessing_order
       cal_summary[which(i == file), "Method"] <- regression
@@ -514,7 +514,6 @@ predict.read_cal <- function(object, newdata, get_comp = c("optimal", "all"),
 #' in the two strings.
 #' @keywords internal
 string_diff <- function(s1, s2) {
-  
   # some examples
   # proximetricsR:::string_diff("abc", "abd")
   # proximetricsR:::string_diff("1001", "1000") == proximetricsR:::string_diff("1000", "1001")
@@ -525,7 +524,7 @@ string_diff <- function(s1, s2) {
   # proximetricsR:::string_diff("100", "1000") == 16
   # proximetricsR:::string_diff("2000", "1000") == 256^3
   # proximetricsR:::string_diff("2000", "1001") == 256^3 - 1
-  
+
   # Ensure that the strings are of the same length
   max_len <- max(nchar(s1), nchar(s2))
   s1 <- sprintf("%-*s", max_len, s1)
@@ -565,7 +564,6 @@ string_diff <- function(s1, s2) {
 
 
 locate_serialnumber_index <- function(serial_numbers, serialnumber) {
-  
   # EXAMPLES:
   #   serial_numbers <- c("12345", "67890", "ABCDE")
   #   locate_serialnumber_index(serial_numbers, "12345")
@@ -574,7 +572,7 @@ locate_serialnumber_index <- function(serial_numbers, serialnumber) {
   #   locate_serialnumber_index(serial_numbers, "2000") # Should return 8
   #   # Should return the index with smallest difference, 6
   #   locate_serialnumber_index(serial_numbers, "100b")
-  
+
   # seealso the following function: string_diff()
 
   # Return 1 if the list is empty

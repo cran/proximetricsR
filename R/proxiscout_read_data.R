@@ -6,7 +6,7 @@
 #' spectral data columns based on numeric column names, converts reflectance values
 #' from percentages to absolute units, and stores them in a matrix under the `spc`
 #' column.
-#' 
+#'
 #' @usage
 #' proxiscout_read_data(file, references_file)
 #'
@@ -14,25 +14,25 @@
 #' file must be either have `.csv` or a `.xlsx` extension.
 #' @param references_file An optional character string specifying the path to
 #' a file containing reference values. See details.
-#' 
+#'
 #' @details
 #' This function allows the user to give the path to one or two files at once.
-#' 
+#'
 #' If two file paths are given, the files are assumed to contain the spectral
 #' data in `file`, while `references_file` contains only the reference values.
 #' Both files must have a column that contains the regex `sample`,
 #' and the entries must coincide (excluding potential repetition identificators).
 #' These files are then merged together by the column with the name containing `sample`.
-#' 
+#'
 #' If only `file` is given, it must contain the spectral columns, and may or may
 #' not contain reference values.
-#' 
+#'
 #' In general, inside `file`, any column AFTER the spectra are identified as
 #' predictions, and are collected into a `matrix` called `predictions` (if any
 #' exist). Columns that contain numerical values and do not contain typical
 #' column names (see \code{\link{extract_property_names}} for more details)
 #' that appear BEFORE the spectral data columns are identified reference values.
-#' 
+#'
 #' The function:
 #' - ensures the file extensions are valid (`.csv` or `.xlsx`).
 #' - reads CSV files using `read.csv()` and Excel files using `readxl::read_excel()`.
@@ -52,7 +52,7 @@
 #' (e.g. "3921.0") and removes any prefixed characters such as "X" that may be added
 #' by \code{read.csv}. These names are converted to numeric and used as column names
 #' of the spectral matrix.
-#' 
+#'
 #' @return A `data.frame` where:
 #'   - Spectral data is stored as a **matrix** in the `spc` column.
 #'   - Columns identified as predictions are stored as a **matrix** in the `predictions` column.
@@ -96,8 +96,8 @@ proxiscout_read_data <- function(file, references_file) {
     colnames(predictions) <- colnames(x)[cpred]
     x <- x[, -cpred, drop = FALSE]
   }
-  x <- x[, -cspc, drop = FALSE] 
-  
+  x <- x[, -cspc, drop = FALSE]
+
   # If the references file is not missing, read it and merge it to x
   if (!missing(references_file)) {
     ref_ext <- file_ext(references_file)
@@ -150,17 +150,17 @@ proxiscout_read_data <- function(file, references_file) {
 }
 
 #' @title ProxiScout repetition pattern
-#' 
+#'
 #' @description
 #' Returns the pattern that can be used to identify repetitions in the sample ID
 #' of ProxiScout data files
-#' 
+#'
 #' @usage
 #' proxiscout_repetition_pattern()
-#' 
+#'
 #' @return A character that can be used as a regex for identifying repetitions
 #' in ProxiScout data files
-#' 
+#'
 #' @author Claudio Orellano
 #' @export
 proxiscout_repetition_pattern <- function() {

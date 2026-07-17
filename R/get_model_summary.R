@@ -24,13 +24,13 @@ get_model_summary <- function(x, ...) {
   smr$preprocessing <- NULL
   smr$preprocessing$xp <- x$preprocess$preprocessing_order
   smr$preprocessing$detail <- x$preprocess
-  
+
   smr$formula <- x$formula
   smr$method_used <- c(sub("r$", "", x$method$fit_method), x$method$type)
   smr$ncomp <- x$method$ncomp
   smr$final_ncomp <- x$final_ncomp
 
-  
+
   if (!is.null(x$final_model$model_cv)) {
     smr$train_stats <- x$final_model$model_cv$grid
     smr$train_stats <- smr$train_stats[, !colnames(smr$train_stats) %in% c("largest_residual", "largest_residual_sd")]

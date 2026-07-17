@@ -58,12 +58,13 @@
 #' \code{\link{get_proxiscout_wavenumbers}}
 #' @export
 prep_resample <- function(grid) {
-  if (missing(grid))
+  if (missing(grid)) {
     stop(
       "'grid' is required. ",
       "Provide c(min_wav, max_wav, resolution) or \"proxiscout\"."
     )
-  
+  }
+
   if (is.character(grid)) {
     grid <- match.arg(grid, "proxiscout")
     return(
@@ -79,24 +80,28 @@ prep_resample <- function(grid) {
       )
     )
   }
-  
-  if (!is.numeric(grid) || length(grid) != 3)
+
+  if (!is.numeric(grid) || length(grid) != 3) {
     stop(
       "'grid' must be a numeric vector of length 3: ",
       "c(min_wav, max_wav, resolution)."
     )
-  if (any(is.na(grid)))
+  }
+  if (any(is.na(grid))) {
     stop("'grid' cannot contain NA values.")
-  
+  }
+
   min_wav <- grid[[1]]
   max_wav <- grid[[2]]
   resolution <- grid[[3]]
-  
-  if (max_wav <= min_wav)
+
+  if (max_wav <= min_wav) {
     stop("grid[2] (max_wav) must be greater than grid[1] (min_wav).")
-  if (resolution <= 0)
+  }
+  if (resolution <= 0) {
     stop("grid[3] (resolution) must be positive.")
-  
+  }
+
   structure(
     list(
       method = "prep_resample",
@@ -113,42 +118,46 @@ prep_resample <- function(grid) {
 #' @keywords internal
 .exec_resample <- function(X, step) {
   wav_current <- as.numeric(colnames(X))
-  
+
   if (is.null(step$min_wav)) {
     hw_wavs <- get_proxiscout_wavenumbers()
     wav_new <- hw_wavs[hw_wavs >= min(wav_current) & hw_wavs <= max(wav_current)]
-    if (length(wav_new) == 0)
-      wav_current <- 10000000 / wav_current  
+    if (length(wav_new) == 0) {
+      wav_current <- 10000000 / wav_current
+    }
     wav_new <- hw_wavs[hw_wavs >= min(wav_current) & hw_wavs <= max(wav_current)]
-    
-    if (length(wav_new) < 3)
+
+    if (length(wav_new) < 3) {
       stop(
         "Too few or no overlapping wavenumbers between NeoSpectra grid and X."
       )
+    }
     resampled <- resample(
-      X, wav_current, 
-      wav_new, 
+      X, wav_current,
+      wav_new,
       interpol = "spline"
     )
   } else {
     wav_new <- seq(step$min_wav, step$max_wav, step$resolution)
 
-    if (min(wav_current) > min(wav_new))
+    if (min(wav_current) > min(wav_new)) {
       stop(
         "Extrapolation not allowed: target min ", min(wav_new),
         " is below data min ", min(wav_current), "."
       )
-    
-    if (max(wav_current) < max(wav_new))
+    }
+
+    if (max(wav_current) < max(wav_new)) {
       stop(
         "Extrapolation not allowed: target max ", max(wav_new),
         " is above data max ", max(wav_current), "."
       )
+    }
     resampled <- resample(
-      X, wav_current, 
-      wav_new, 
-      interpol = "spline", 
-      ties = mean, 
+      X, wav_current,
+      wav_new,
+      interpol = "spline",
+      ties = mean,
       method = "natural"
     )
   }

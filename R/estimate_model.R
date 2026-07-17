@@ -1,4 +1,4 @@
-#' @title A method for estimating the model 
+#' @title A method for estimating the model
 #' @aliases .estimate_model
 #' @aliases predict.spectral_fit
 #'
@@ -9,7 +9,7 @@
 #' regression models for a response variable and its associated set of predictors
 #' based on the methods available in the BUCHI NIRWise PLUS calibration software.
 #' @usage
-#' 
+#'
 #' .estimate_model(X, Y, method = fit_plsr(ncomp = min(15, dim(X))))
 #' \method{predict}{spectral_fit}(object, newdata, ...)
 #'
@@ -86,7 +86,6 @@
 #' @keywords internal
 
 .estimate_model <- function(X, Y, method = fit_plsr(ncomp = min(15, dim(X)))) {
-  
   if (!"fit_constructor" %in% class(method)) {
     stop("'method' must be of class 'fit_constructor'.")
   }

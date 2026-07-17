@@ -131,7 +131,7 @@ test_that("prep_wav_trim errors when trim_constant_edges has length > 1", {
 
 test_that("band trimming retains columns within specified range", {
   skip_on_cran()
-  X <- NIRcannabis$spc[1:10, ]  # Reduced dataset
+  X <- NIRcannabis$spc[1:10, ] # Reduced dataset
   step <- prep_wav_trim(band = c(1200, 1600))
 
   result <- proximetricsR:::.exec_wav_trim(X, step)
@@ -372,16 +372,17 @@ test_that("trimming warns when column names are not numeric", {
   warnings_emitted <- testthat::capture_warnings(
     result <- proximetricsR:::.exec_wav_trim(X, step)
   )
-  
+
   expect_match(
-    warnings_emitted, "NAs introduced by coercion", all = FALSE
-  )
-  expect_match(
-    warnings_emitted, 
-    "Column names are not numeric wavelengths; band trimming skipped", 
+    warnings_emitted, "NAs introduced by coercion",
     all = FALSE
   )
-  
+  expect_match(
+    warnings_emitted,
+    "Column names are not numeric wavelengths; band trimming skipped",
+    all = FALSE
+  )
+
   # Should return unchanged when column names can't be coerced
   expect_equal(ncol(result), ncol(X))
 })

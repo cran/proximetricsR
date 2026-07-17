@@ -5,20 +5,18 @@
 \alias{predict.spectral_multimodel}
 \title{Calibrate models for multiple response variables}
 \usage{
-calibrate_models(
-  formulas,
-  data, group = NULL,
-  preprocess_recipes,
-  methods,
-  control = calibration_control(seed = 1),
-  metadata_list = NULL,
-  skip_indices_list = NULL,
-  return_inputs = TRUE,
-  ...,
-  na_action = na.pass,
-  verbose = TRUE,
-  save_all = FALSE
-)
+calibrate_models(formulas,
+                 data, group = NULL,
+                 preprocess_recipes,
+                 methods,
+                 control = calibration_control(seed = 1),
+                 metadata_list = NULL,
+                 skip_indices_list = NULL,
+                 return_inputs = TRUE,
+                 ...,
+                 na_action = na.pass,
+                 verbose = TRUE,
+                 save_all = FALSE)
 
 \method{predict}{spectral_multimodel}(object, newdata, verbose = TRUE, ...)
 }

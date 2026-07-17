@@ -4,8 +4,17 @@
 \alias{proximate_write_data}
 \title{Write NIRWise PLUS readable tab-separated files}
 \usage{
-proximate_write_data(x, file, id, spc, spc_round = 8, barcode = "", properties = NULL,
-          note = "", recipe = "", created, snr)
+proximate_write_data(x, 
+                     file, 
+                     id, 
+                     spc, 
+                     spc_round = 8, 
+                     barcode = "", 
+                     properties = NULL, 
+                     note = "", 
+                     recipe = "", 
+                     created, 
+                     snr)
 }
 \arguments{
 \item{x}{a data.frame of spectral data and metadata, for which the tab

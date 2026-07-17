@@ -8,15 +8,13 @@
 #' \code{spectral_model}.
 #'
 #' @usage
-#' \method{plot}{spectral_model}(
-#'   x, validations = NULL, output_file = x$target_variable,
+#' \method{plot}{spectral_model}(x, validations = NULL, output_file = x$target_variable,
 #'   output_dir = NULL,
 #'   spectral = c("weights", "coefficients", "scores", "mahalanobis"),
 #'   cv = c("error", "response", "residuals", "qq", "distributions"),
 #'   regression = NULL,
 #'   validation = if (!is.null(validations)) "all" else NULL,
-#'   verbose = TRUE, open_file = TRUE, ...
-#' )
+#'   verbose = TRUE, open_file = TRUE, ...)
 #'
 #' @param x an object of class \code{"spectral_model"}. This model should be
 #' generated using the \code{\link{calibrate}} function.
@@ -209,7 +207,8 @@
 #'
 #' plot(my_model, output_dir = tempdir())
 #' # Include every available plot in every section
-#' plot(my_model, output_dir = tempdir(),
+#' plot(my_model,
+#'   output_dir = tempdir(),
 #'   spectral = "all", cv = "all", regression = "all", validation = "all"
 #' )
 #' # Custom section selection
@@ -243,17 +242,17 @@
 #' @importFrom callr r_bg
 #' @export
 plot.spectral_model <- function(
-    x,
-    validations = NULL,
-    output_file = x$target_variable,
-    output_dir = NULL,
-    spectral = c("weights", "coefficients", "scores", "mahalanobis"),
-    cv = c("error", "response", "residuals", "qq", "distributions"),
-    regression = NULL,
-    validation = if (!is.null(validations)) "all" else NULL,
-    verbose = TRUE,
-    open_file = TRUE,
-    ...
+  x,
+  validations = NULL,
+  output_file = x$target_variable,
+  output_dir = NULL,
+  spectral = c("weights", "coefficients", "scores", "mahalanobis"),
+  cv = c("error", "response", "residuals", "qq", "distributions"),
+  regression = NULL,
+  validation = if (!is.null(validations)) "all" else NULL,
+  verbose = TRUE,
+  open_file = TRUE,
+  ...
 ) {
   if (missing(x)) {
     stop("Please specify the model.")
@@ -269,7 +268,7 @@ plot.spectral_model <- function(
   if (!is.logical(verbose)) {
     stop("'verbose' must be a logical.")
   }
-  
+
   selection <- c(
     .resolve_plots(spectral, .spectral_plot_map),
     .resolve_plots(cv, .cv_plot_map),
@@ -279,34 +278,34 @@ plot.spectral_model <- function(
   if (length(selection) == 0) {
     stop("No plots selected. Provide at least one section argument.")
   }
-  
+
   if (is.null(quarto::quarto_path())) {
     stop(
       "The Quarto CLI is required to generate plots but was not found.\n",
       "Install it from https://quarto.org/docs/get-started/"
     )
   }
-  
+
   if (is.null(output_dir)) output_dir <- tempdir()
   out_path <- file.path(output_dir, paste0(output_file, ".html"))
   html_fname <- paste0(output_file, ".html")
-  
+
   tmp_dir <- file.path(tempdir(), paste0("proximetrics_plot_", uuid::UUIDgenerate()))
   tmp_model <- file.path(tmp_dir, "model.rds")
   tmp_validations <- file.path(tmp_dir, "validations.rds")
   tmp_qmd <- file.path(tmp_dir, "model_plot_template.qmd")
   on.exit(unlink(tmp_dir, recursive = TRUE), add = TRUE)
-  
+
   if (verbose) {
     .print_plot_options(spectral, cv, regression, validation)
     cat("\nUse \"all\" to include every plot in a section, NULL to skip. See ?plot.spectral_model\n\n")
   }
-  
+
   dir.create(tmp_dir, showWarnings = FALSE)
   file.copy(system.file("model_plot_template.qmd", package = "proximetricsR"), tmp_qmd)
   saveRDS(x, tmp_model)
   saveRDS(validations, tmp_validations)
-  
+
   render_params <- list(
     model_path = tmp_model,
     validations_path = tmp_validations,
@@ -314,9 +313,9 @@ plot.spectral_model <- function(
     graph_params = list(...),
     subtitle = paste0(x$target_variable, " - ", Sys.Date())
   )
-  
-  # callr::r_bg() is used to run quarto_render() in a background R process, 
-  # which allows the main R session to remain responsive and display a progress 
+
+  # callr::r_bg() is used to run quarto_render() in a background R process,
+  # which allows the main R session to remain responsive and display a progress
   # spinner.
   bg <- callr::r_bg(
     function(tmp_qmd, render_params, html_fname) {
@@ -330,7 +329,7 @@ plot.spectral_model <- function(
     args = list(tmp_qmd, render_params, html_fname),
     supervise = FALSE
   )
-  
+
   if (verbose) {
     spinner <- c("> ", ">> ", ">>>", " ")
     i <- 0L
@@ -344,15 +343,15 @@ plot.spectral_model <- function(
   } else {
     bg$wait()
   }
-  
+
   bg$get_result()
-  
+
   file.copy(file.path(tmp_dir, html_fname), out_path, overwrite = TRUE)
-  
+
   if (verbose) {
     cat("Output created:", out_path, "\n")
   }
-  
+
   if (open_file) browseURL(paste0("file://", out_path))
 }
 
@@ -373,23 +372,25 @@ plot.spectral_model <- function(
 
 .print_plot_options <- function(spectral, cv, regression, validation) {
   use_col <- .use_color()
-  
+
   .fmt_section <- function(label, map, selected) {
     if (identical(selected, "all")) selected <- names(map)
     if (is.null(selected)) selected <- character(0)
-    
+
     nms <- names(map)
-    
+
     fmt_nm <- function(nm) {
       q <- paste0('"', nm, '"')
-      if (nm %in% selected && use_col)
+      if (nm %in% selected && use_col) {
         paste0("\033[1;31m", q, "\033[0m")
-      else q
+      } else {
+        q
+      }
     }
-    
+
     fmt_items <- sapply(nms, fmt_nm)
     vis_w <- nchar(nms) + 2L
-    
+
     # single-line check (visual width only)
     single_vis <- 2L + nchar(label) + 5L + sum(vis_w) +
       max(0L, (length(nms) - 1L) * 2L) + 1L
@@ -397,17 +398,17 @@ plot.spectral_model <- function(
       cat(paste0(" ", label, " = c(", paste(fmt_items, collapse = ", "), ")\n"))
       return(invisible(NULL))
     }
-    
+
     # multi-line: items indented 4 spaces, closing ) on own line
     cat(paste0(" ", label, " = c(\n"))
     cur_line <- " "
     cur_vis <- 4L
-    
+
     for (i in seq_along(nms)) {
       item_vis <- vis_w[i]
       is_last <- i == length(nms)
       sep_vis <- if (is_last) 0L else 2L
-      
+
       if (cur_vis > 4L && cur_vis + item_vis + sep_vis > 80L) {
         cat(cur_line, ",\n", sep = "")
         cur_line <- paste0(" ", fmt_items[i])
@@ -424,13 +425,17 @@ plot.spectral_model <- function(
     }
     cat(cur_line, "\n )\n", sep = "")
   }
-  
+
   cat("Available plot parameter options:\n")
-  cat("---\n"); .fmt_section("spectral", .spectral_plot_map, spectral)
-  cat("---\n"); .fmt_section("cv", .cv_plot_map, cv)
-  cat("---\n"); .fmt_section("regression", .regression_plot_map, regression)
-  cat("---\n"); .fmt_section("validation", .validation_plot_map, validation)
-  
+  cat("---\n")
+  .fmt_section("spectral", .spectral_plot_map, spectral)
+  cat("---\n")
+  .fmt_section("cv", .cv_plot_map, cv)
+  cat("---\n")
+  .fmt_section("regression", .regression_plot_map, regression)
+  cat("---\n")
+  .fmt_section("validation", .validation_plot_map, validation)
+
   if (use_col) {
     cat(
       "\nLegend:",
@@ -441,12 +446,18 @@ plot.spectral_model <- function(
 }
 
 .resolve_plots <- function(arg, map) {
-  if (is.null(arg)) return(NULL)
-  if (identical(arg, "all")) return(unname(map))
+  if (is.null(arg)) {
+    return(NULL)
+  }
+  if (identical(arg, "all")) {
+    return(unname(map))
+  }
   bad <- arg[!arg %in% names(map)]
-  if (length(bad) > 0)
-    stop("Unknown plot(s): ", paste(bad, collapse = ", "),
-         ". Available: ", paste(names(map), collapse = ", "), ".")
+  if (length(bad) > 0) {
+    stop(
+      "Unknown plot(s): ", paste(bad, collapse = ", "),
+      ". Available: ", paste(names(map), collapse = ", "), "."
+    )
+  }
   unname(map[arg])
 }
-

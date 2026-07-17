@@ -25,7 +25,7 @@ test_that("Elements passed to process recipe must be of class 'process", {
 
 test_that("Empty recipe does not change X", {
   X_no_preprocess <- process(X, preprocess_recipe())
-  attr(X_no_preprocess,"processed_wavs") <- attr(X_no_preprocess, "preprocess_recipe") <- NULL
+  attr(X_no_preprocess, "processed_wavs") <- attr(X_no_preprocess, "preprocess_recipe") <- NULL
   expect_identical(X_no_preprocess, X)
 })
 
@@ -72,12 +72,13 @@ full_recipe_rev <- process(X, preprocess_recipe(
 test_that("A full recipe is correctly applied", {
   with_recipe <- full_recipe
   attr(with_recipe, "processed_wavs") <- attr(with_recipe, "preprocess_recipe") <- NULL
-  
-  one_by_one <- X |> process(prep_resample(c(1100, 1500, 20))) |>
+
+  one_by_one <- X |>
+    process(prep_resample(c(1100, 1500, 20))) |>
     process(prep_snv()) |>
     process(prep_derivative(m = 2, w = 5, p = 2, algorithm = "savitzky-golay")) |>
     process(prep_smooth(w = 5, p = 3, algorithm = "savitzky-golay"))
-  attr(one_by_one, "processed_wavs") <- attr(one_by_one,"preprocess_recipe") <- NULL
+  attr(one_by_one, "processed_wavs") <- attr(one_by_one, "preprocess_recipe") <- NULL
   expect_identical(with_recipe, one_by_one)
 })
 
@@ -105,4 +106,3 @@ test_that("The recipe is correctly printed", {
 test_that("Elements in a recipe must be of class 'preprocessing'", {
   expect_error(preprocess_recipe(mean, sd))
 })
-

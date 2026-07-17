@@ -14,16 +14,14 @@
 #' as input for the argument \code{metadata} of the \code{\link{calibrate}} function.
 #'
 #' @usage
-#'
-#' add_model_metadata(
-#'   object, key = UUIDgenerate(), created, changed,
-#'   name = c("", NULL), sort_order = 1, tol_min = NULL,
-#'   tol_max = NULL, decimal_places = 2, unit = "",
-#'   mahal_limit = 5, corrections = c(bias = 0, slope = 1),
-#'   limit_min = NULL, limit_max = NULL, target = NULL,
-#'   wavelength_range = c("Nir", "Vis", "Nir+Vis"),
-#'   predict_type = "Calibration", arguments = rep("", 4)
-#' )
+#' 
+#' add_model_metadata(object, key = UUIDgenerate(), created, changed,
+#'                    name = c("", NULL), sort_order = 1, tol_min = NULL,
+#'                    tol_max = NULL, decimal_places = 2, unit = "",
+#'                    mahal_limit = 5, corrections = c(bias = 0, slope = 1),
+#'                    limit_min = NULL, limit_max = NULL, target = NULL,
+#'                    wavelength_range = c("Nir", "Vis", "Nir+Vis"),
+#'                    predict_type = "Calibration", arguments = rep("", 4))
 #'
 #' @param object an optional object of class \code{spectral_model}. See details.
 #' @param key a string for the key of the model. Defaults to a newly
@@ -135,24 +133,24 @@
 #' @export
 
 add_model_metadata <- function(
-    object,
-    key = UUIDgenerate(),
-    created,
-    changed,
-    name = c("", NULL),
-    sort_order = 1,
-    tol_min = NULL,
-    tol_max = NULL,
-    decimal_places = 2,
-    unit = "",
-    mahal_limit = 5,
-    corrections = c(bias = 0, slope = 1),
-    limit_min = NULL,
-    limit_max = NULL,
-    target = NULL,
-    wavelength_range = c("Nir", "Vis", "Nir+Vis"),
-    predict_type = "Calibration",
-    arguments = rep("", 4)
+  object,
+  key = UUIDgenerate(),
+  created,
+  changed,
+  name = c("", NULL),
+  sort_order = 1,
+  tol_min = NULL,
+  tol_max = NULL,
+  decimal_places = 2,
+  unit = "",
+  mahal_limit = 5,
+  corrections = c(bias = 0, slope = 1),
+  limit_min = NULL,
+  limit_max = NULL,
+  target = NULL,
+  wavelength_range = c("Nir", "Vis", "Nir+Vis"),
+  predict_type = "Calibration",
+  arguments = rep("", 4)
 ) {
   wavelength_range <- match.arg(wavelength_range)
   if (!missing(object)) {
@@ -163,7 +161,7 @@ add_model_metadata <- function(
   orig_secs <- getOption("digits.secs")
   options(digits.secs = 6)
   on.exit(options(digits.secs = orig_secs))
-  
+
   if (missing(created)) {
     created <- gsub(" ", "T", format(Sys.time()))
   }
@@ -229,7 +227,7 @@ add_model_metadata <- function(
   if (length(arguments) < 4) {
     arguments <- c(arguments, rep("", 4 - length(arguments)))
   }
-  
+
   property_meta <- list(
     Key = key,
     Created = created,
@@ -289,22 +287,21 @@ add_model_metadata <- function(
 #' \code{\link{proximate_write_nax}} function.
 #'
 #' @usage
-#' 
-#' add_application_metadata(
-#'   object, key = UUIDgenerate(),
-#'   name = c(name = "Untitled", alias = NULL),
-#'   view = c("Up", "Down"), measurement_mode = c("DrIwr", "TrIwr"),
-#'   measurement_time = 15,
-#'   absorbmask_low = c(min = 0, max = 0),
-#'   absorbmask_high = c(min = 0, max = 0),
-#'   rotate_sample = TRUE,
-#'   selectable = TRUE, created, changed,
-#'   composition = NULL,
-#'   description = "created with proximetricsR",
-#'   sop = "",
-#'   presentation_id = "Default"
-#' )
 #'
+#' add_application_metadata(object, key = UUIDgenerate(),
+#'                          name = c(name = "Untitled", alias = NULL),
+#'                          view = c("Up", "Down"), 
+#'                          measurement_mode = c("DrIwr", "TrIwr"),
+#'                          measurement_time = 15,
+#'                          absorbmask_low = c(min = 0, max = 0),
+#'                          absorbmask_high = c(min = 0, max = 0),
+#'                          rotate_sample = TRUE,
+#'                          selectable = TRUE, created, changed,
+#'                          composition = NULL,
+#'                          description = "created with proximetricsR",
+#'                          sop = "",
+#'                          presentation_id = "Default")
+#' 
 #' @param object an optional object, consisting of a list of objects
 #' of class \code{spectral_model}. See details.
 #' @param key a string for the key of the application. Defaults to a newly
@@ -438,22 +435,22 @@ add_model_metadata <- function(
 #' @import uuid
 #' @export
 add_application_metadata <- function(
-    object,
-    key = UUIDgenerate(),
-    name = c(name = "Untitled", alias = NULL),
-    view = c("Up", "Down"),
-    measurement_mode = c("DrIwr", "TrIwr"),
-    measurement_time = 15,
-    absorbmask_low = c(min = 0, max = 0),
-    absorbmask_high = c(min = 0, max = 0),
-    rotate_sample = TRUE,
-    selectable = TRUE,
-    created,
-    changed,
-    composition = NULL,
-    description = "created with proximetricsR",
-    sop = "",
-    presentation_id = "Default"
+  object,
+  key = UUIDgenerate(),
+  name = c(name = "Untitled", alias = NULL),
+  view = c("Up", "Down"),
+  measurement_mode = c("DrIwr", "TrIwr"),
+  measurement_time = 15,
+  absorbmask_low = c(min = 0, max = 0),
+  absorbmask_high = c(min = 0, max = 0),
+  rotate_sample = TRUE,
+  selectable = TRUE,
+  created,
+  changed,
+  composition = NULL,
+  description = "created with proximetricsR",
+  sop = "",
+  presentation_id = "Default"
 ) {
   view <- match.arg(view)
   measurement_mode <- match.arg(measurement_mode)

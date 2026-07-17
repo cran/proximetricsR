@@ -31,7 +31,7 @@ knitr::opts_chunk$set(out.height = "100%", out.width = "100%", echo = FALSE)
 knitr::opts_knit$set(progress = FALSE)
 library(plotly)
 full_model <- readRDS(params$model_path)
-selection  <- params$selection
+selection <- params$selection
 
 n_comps <- full_model$method$ncomp
 components <- 1:n_comps
@@ -40,8 +40,7 @@ final_model <- full_model$final_model
 
 wavelengths <- as.double(colnames(final_model$model$weights))
 n_observations <- final_model$model$n_observations
-xaxis_label <- switch(
-  full_model$preprocess$device,
+xaxis_label <- switch(full_model$preprocess$device,
   proxiscout  = "Wavenumber (cm<sup>-1</sup>)",
   proximate   = "Wavelength (nm)",
   ""
@@ -1717,16 +1716,18 @@ for (i in 1:n_vals) {
       round(validations$model_information$model_grid[i, "rsq"], digits = 2),
       "; RMSE =",
       round(validations$model_information$model_grid[i, "rmse"], digits = 2),
-      "</b>")
+      "</b>"
+    )
   } else {
-    model_info = ""
+    model_info <- ""
   }
   fig <- fig |> add_text(
     text = paste(model_info,
-      paste("Validation: <b>R<sup>2</sup> =",
-      round(validations$validation[[i]]$val_stats["rsq"], digits = 2),
-      "; RMSE =",
-      round(validations$validation[[i]]$val_stats["rmse"], digits = 2)
+      paste(
+        "Validation: <b>R<sup>2</sup> =",
+        round(validations$validation[[i]]$val_stats["rsq"], digits = 2),
+        "; RMSE =",
+        round(validations$validation[[i]]$val_stats["rmse"], digits = 2)
       ),
       collapse = "\n"
     ),

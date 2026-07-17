@@ -78,7 +78,7 @@ test_that("cal_info has required read_cal elements", {
   skip_on_cran()
   result <- suppressWarnings(proximate_read_nax(nax_file, ignore_version = TRUE))
   expect_true(all(c("summary", "meta_param", "file_info", "models") %in%
-                    names(result$cal_info)))
+    names(result$cal_info)))
 })
 
 # ─── 6. data has summary and data elements ────────────────────────────────────

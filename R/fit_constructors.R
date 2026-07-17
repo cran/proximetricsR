@@ -85,10 +85,12 @@ NULL
 # fit_plsr
 #' @export
 fit_plsr <- function(ncomp, type = c("nwp", "standard", "modified")) {
-  if (missing(ncomp))
+  if (missing(ncomp)) {
     stop("'ncomp' must be specified.")
-  if (length(ncomp) != 1L || !is.numeric(ncomp) || ncomp < 1L)
+  }
+  if (length(ncomp) != 1L || !is.numeric(ncomp) || ncomp < 1L) {
     stop("'ncomp' must be a single positive integer.")
+  }
 
   type <- match.arg(type)
 
@@ -112,21 +114,26 @@ print.fit_plsr <- function(x, ...) {
 # fit_xlsr
 #' @export
 fit_xlsr <- function(
-    ncomp,
-    type = c("nwp", "standard", "modified"),
-    min_w = 3,
-    max_w = 15
+  ncomp,
+  type = c("nwp", "standard", "modified"),
+  min_w = 3,
+  max_w = 15
 ) {
-  if (missing(ncomp))
+  if (missing(ncomp)) {
     stop("'ncomp' must be specified.")
-  if (length(ncomp) != 1L || !is.numeric(ncomp) || ncomp < 1L)
+  }
+  if (length(ncomp) != 1L || !is.numeric(ncomp) || ncomp < 1L) {
     stop("'ncomp' must be a single positive integer.")
-  if (length(min_w) != 1L || !is.numeric(min_w) || min_w < 1L)
+  }
+  if (length(min_w) != 1L || !is.numeric(min_w) || min_w < 1L) {
     stop("'min_w' must be a single positive integer.")
-  if (length(max_w) != 1L || !is.numeric(max_w) || max_w < 1L)
+  }
+  if (length(max_w) != 1L || !is.numeric(max_w) || max_w < 1L) {
     stop("'max_w' must be a single positive integer.")
-  if (min_w >= max_w)
+  }
+  if (min_w >= max_w) {
     stop("'min_w' must be less than 'max_w'.")
+  }
 
   type <- match.arg(type)
 
@@ -156,7 +163,8 @@ print.fit_xlsr <- function(x, ...) {
 #' @export
 print.fit_constructor <- function(x, ...) {
   cat("Fitting method:", x$fit_method, "\n")
-  for (nm in setdiff(names(x), "fit_method"))
+  for (nm in setdiff(names(x), "fit_method")) {
     cat(" ", nm, ":", x[[nm]], "\n")
+  }
   invisible(x)
 }

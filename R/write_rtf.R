@@ -352,10 +352,11 @@ write_rtf <- function(object, path, tsv_path, application_name = "Untitled",
         "\\tab \\b TOTAL OBSERVATIONS DELETED\\tab \\tab ",
         length(model$skipped_indices$manually_skipped),
         " (",
-        round(length(model$skipped_indices$manually_skipped) /
-          (model[[model_p]]$model$n_observations +
-            length(model$skipped_indices$manually_skipped)) * 100,
-        digits = 1
+        round(
+          length(model$skipped_indices$manually_skipped) /
+            (model[[model_p]]$model$n_observations +
+              length(model$skipped_indices$manually_skipped)) * 100,
+          digits = 1
         ),
         "%)\\b0"
       ),
@@ -616,10 +617,11 @@ write_rtf <- function(object, path, tsv_path, application_name = "Untitled",
           "\\tab \\b TOTAL OBSERVATIONS DELETED\\tab \\tab ",
           n_deletes,
           " (",
-          round(n_deletes /
-            (model[[model_p]]$model$n_observations +
-              length(model$skipped_indices$manually_skipped)) * 100,
-          digits = 1
+          round(
+            n_deletes /
+              (model[[model_p]]$model$n_observations +
+                length(model$skipped_indices$manually_skipped)) * 100,
+            digits = 1
           ),
           "%)\\b0"
         ),

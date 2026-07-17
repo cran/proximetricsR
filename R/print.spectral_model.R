@@ -1,7 +1,7 @@
 #' @title Print method for an object of class \code{spectral_model}
 #' @description Prints the content of an object of class \code{spectral_model}
 #' @aliases print.spectral_model
-#' @usage \method{print}{spectral_model}(x, ...)  
+#' @usage \method{print}{spectral_model}(x, ...)
 #' @param x an object of class \code{spectral_model} (as returned by the
 #' \code{\link{calibrate}} function).
 #' @param ... arguments to be passed to methods (not functional).
@@ -20,9 +20,9 @@ print.spectral_model <- function(x, ...) {
   div <- paste(rep("_", bar_width), collapse = "")
 
   smr <- get_model_summary(x)
-  
-  xp <- smr$preprocessing$xp 
-  
+
+  xp <- smr$preprocessing$xp
+
   cat("Modeling response:", smr$target_var, "\n")
   cat("Range:", paste(smr$y_range, collapse = " - "), "\n")
   cat("Final number of observations:", smr$n_observations, "\n")

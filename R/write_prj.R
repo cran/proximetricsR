@@ -411,15 +411,16 @@ write_prj <- function(object, path, tsv_paths = "", application_name = "Untitled
       control$val_residual_limit
     )
     autodel <- paste0(autodel, '",#', control$remove_outliers > 0, "#")
-    deletes <- paste(paste0(
-      '"Model1:Delete',
-      ceiling(length(skipped) / 10) + ceiling(length(detected_outliers) / 10) + 1,
-      '","-",#FALSE#,"Model1",""'
-    ), paste0(
-      '"Model1:Delete', ceiling(length(skipped) / 10) + ceiling(length(detected_outliers) / 10) + 2,
-      '","<new deletes>",#FALSE#,"Model1",""'
-    ),
-    sep = "\r\n"
+    deletes <- paste(
+      paste0(
+        '"Model1:Delete',
+        ceiling(length(skipped) / 10) + ceiling(length(detected_outliers) / 10) + 1,
+        '","-",#FALSE#,"Model1",""'
+      ), paste0(
+        '"Model1:Delete', ceiling(length(skipped) / 10) + ceiling(length(detected_outliers) / 10) + 2,
+        '","<new deletes>",#FALSE#,"Model1",""'
+      ),
+      sep = "\r\n"
     )
     del <- paste0(del, deletes)
     # Matrices
@@ -436,7 +437,7 @@ write_prj <- function(object, path, tsv_paths = "", application_name = "Untitled
       "",
       sep = "\n"
     )
-    
+
     model_type <- ""
     fit_method <- fitted_model$method$fit_method
     if (fit_method == "plsr") {

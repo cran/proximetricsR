@@ -224,4 +224,3 @@ test_that("The verbose argument must be logical", {
     "'verbose' must be a logical"
   )
 })
-

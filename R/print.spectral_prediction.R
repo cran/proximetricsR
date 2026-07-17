@@ -12,18 +12,18 @@
 print.spectral_prediction <- function(x, ...) {
   sys_width <- getOption("width")
   bar_width <- 55
-  
+
   if (bar_width > sys_width) {
     bar_width <- sys_width
   }
   div <- paste(rep("_", bar_width), collapse = "")
-  
+
   final_predictions <- x$predictions
-  
+
   target_var <- x$model_information$target_var
   n_preds <- nrow(final_predictions)
   final_ncomp <- as.numeric(gsub("ncomp_", "", colnames(final_predictions)))
-  
+
   cat("Predicted response:", target_var, "\n")
   if (!is.null(x$model_information$preprocess_recipe)) {
     print(x$model_information$preprocess_recipe)
@@ -43,7 +43,7 @@ print.spectral_prediction <- function(x, ...) {
       cat("Units of the predicted response: ", x$model_information$unit, "\n")
     }
   }
-  
+
   cat(div, "\n")
   if (nrow(final_predictions) > 20) {
     cat("\n", "First 20 Predictions obtained from the model with 'newdata'", "\n\n")
@@ -55,5 +55,3 @@ print.spectral_prediction <- function(x, ...) {
   cat(div, "\n")
   invisible(x)
 }
-
-

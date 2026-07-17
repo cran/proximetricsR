@@ -75,7 +75,7 @@
 #'   data = NIRcannabis, preprocess = recipe,
 #'   method = fit_plsr(10), control = control, verbose = FALSE
 #' )
-#' 
+#'
 #' json_model <- proxiscout_write_model(model)
 #' json_model
 #'
@@ -90,6 +90,8 @@ proxiscout_write_model <- function(object, file = NULL) {
     stop("The first preprocessing step must be 'prep_resample()'.")
   }
   
+  mpreceision <- 7
+
   # neospectra wavenumbers
   hw_wavs <- get_proxiscout_wavenumbers()
   # Initialize a list to hold the JSON output
@@ -133,12 +135,12 @@ proxiscout_write_model <- function(object, file = NULL) {
     list(list(id = 31, params = list(), index = count))
   )
   count <- count + 1
-  
+
   current_wavs <- hw_wavs
   wav_indices <- which(
     is_close_to_any(current_wavs, object$processed_wavs$step_0, tol = 0.1)
   )
-  
+
   if (length(wav_indices) < length(current_wavs)) {
     json_output <- append(
       json_output,
@@ -146,16 +148,16 @@ proxiscout_write_model <- function(object, file = NULL) {
     )
     count <- count + 1
   }
-  current_wavs <- current_wavs[wav_indices] 
-  
-  
+  current_wavs <- current_wavs[wav_indices]
+
+
   # scale si-ware from 0-100 reflectance to 0-1 reflectance
   json_output <- append(
     json_output,
     list(list(id = 37, params = list(0.01), index = count))
   )
   count <- count + 1
-  
+
   # Average readings (spectra); -1 to average all readings with the same sample name
   json_output <- append(
     json_output, list(list(id = 7, params = list(-1), index = count))
@@ -167,7 +169,7 @@ proxiscout_write_model <- function(object, file = NULL) {
   for (preprocess in object$preprocess$steps) {
     i <- i + 1
     preprocess_method <- preprocess$method
-    
+
     if (!preprocess_method %in% c("prep_resample")) {
       json_instruction <- parse_preprocessing(preprocess_method, preprocess, count)
       if (!is.null(json_instruction)) {
@@ -175,11 +177,11 @@ proxiscout_write_model <- function(object, file = NULL) {
         json_output <- append(json_output, list(json_instruction))
       }
     }
-    
+
     wav_indices <- which(
       is_close_to_any(current_wavs, object$processed_wavs[[paste0("step_", i)]], tol = 0.1)
     )
-    
+
     if (length(wav_indices) < length(current_wavs)) {
       json_output <- append(
         json_output,
@@ -187,7 +189,7 @@ proxiscout_write_model <- function(object, file = NULL) {
       )
       count <- count + 1
     }
-    current_wavs <- current_wavs[wav_indices] 
+    current_wavs <- current_wavs[wav_indices]
   }
 
   # second variable selection for accounting for trimming at the
@@ -213,7 +215,7 @@ proxiscout_write_model <- function(object, file = NULL) {
     list(
       list(
         id = 43,
-        params = as.list(as.numeric(format(as.vector(object$final_model$model$x_means), nsmall = 10))),
+        params = as.list(round(as.vector(object$final_model$model$x_means), mpreceision)),
         index = count
       )
     )
@@ -223,7 +225,7 @@ proxiscout_write_model <- function(object, file = NULL) {
     object$final_model$model$intercept,
     object$final_model$model$coefficients[object$final_model$ncomp, ]
   )
-  my_model <- as.vector(my_model)
+  my_model <- round(as.vector(my_model), mpreceision)
   json_output <- append(
     json_output,
     list(
@@ -306,5 +308,6 @@ sgf <- function(p, n, m = 0) {
   if (m > 0) {
     Fm <- Fm * prod(1:m)
   }
+  Fm[abs(Fm) < 1e-10] <- 0 
   Fm
 }

@@ -25,8 +25,7 @@
           verbose = TRUE,
           ...)
 
-\method{predict}{spectral_model}(object, newdata, ncomp = object$final_ncomp,
-          verbose = TRUE, ...)
+\method{predict}{spectral_model}(object, newdata, ncomp = object$final_ncomp, verbose = TRUE, ...)
 }
 \arguments{
 \item{...}{not currently used.}

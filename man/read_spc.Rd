@@ -4,7 +4,7 @@
 \alias{read_spc}
 \title{Read and format spectral data from a file}
 \usage{
-read_spc(file, sep = "\t", dec = ".", header = TRUE, spectra_prefix = "", 
+read_spc(file, sep = "\t", dec = ".", header = TRUE, spectra_prefix = "",
          spectra_starts = NA, spectra_ends = NA, ...)
 }
 \arguments{

@@ -203,7 +203,7 @@ recipe_to_prj_string <- function(recipe, min_wavs, max_wavs, resolution) {
   n_recipe <- preprocess_recipe(
     prep_resample(grid = c(min_wavs, max_wavs, resolution)),
     prep_resample(grid = c(400, 1700, 4)),
-    prep_resample(grid = c(400, 900, 4)), 
+    prep_resample(grid = c(400, 900, 4)),
     device = "proximate"
   )$steps
   if (length(recipe) == 0) {
@@ -229,7 +229,7 @@ recipe_to_prj_string <- function(recipe, min_wavs, max_wavs, resolution) {
       s_recipe <- preprocess_recipe(
         recipe[[i]],
         prep_resample(grid = c(400, 1700, 4)),
-        prep_resample(grid = c(400, 900, 4)), 
+        prep_resample(grid = c(400, 900, 4)),
         device = "proximate"
       )
       pp_output <- append(

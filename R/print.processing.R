@@ -15,8 +15,8 @@
 
 .print_step_params <- function(x) {
   exclude <- c("method", "compatible_devices", "half_w", "half_s")
-  params  <- x[!names(x) %in% exclude]
-  parts   <- character(0)
+  params <- x[!names(x) %in% exclude]
+  parts <- character(0)
   for (nm in names(params)) {
     val <- params[[nm]]
     if (is.null(val)) next
@@ -28,8 +28,9 @@
       parts <- c(parts, paste0(nm, ": ", val))
     }
   }
-  if (length(parts) > 0)
+  if (length(parts) > 0) {
     cat("    ", paste(parts, collapse = "; "), "\n", sep = "")
+  }
 }
 
 #' @noRd

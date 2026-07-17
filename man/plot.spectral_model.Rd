@@ -4,15 +4,13 @@
 \alias{plot.spectral_model}
 \title{Plot results of a given model}
 \usage{
-\method{plot}{spectral_model}(
-  x, validations = NULL, output_file = x$target_variable,
+\method{plot}{spectral_model}(x, validations = NULL, output_file = x$target_variable,
   output_dir = NULL,
   spectral = c("weights", "coefficients", "scores", "mahalanobis"),
   cv = c("error", "response", "residuals", "qq", "distributions"),
   regression = NULL,
   validation = if (!is.null(validations)) "all" else NULL,
-  verbose = TRUE, open_file = TRUE, ...
-)
+  verbose = TRUE, open_file = TRUE, ...)
 }
 \arguments{
 \item{x}{an object of class \code{"spectral_model"}. This model should be
@@ -225,7 +223,8 @@ my_model <- calibrate(CBDA ~ spc,
 
 plot(my_model, output_dir = tempdir())
 # Include every available plot in every section
-plot(my_model, output_dir = tempdir(),
+plot(my_model,
+  output_dir = tempdir(),
   spectral = "all", cv = "all", regression = "all", validation = "all"
 )
 # Custom section selection

@@ -31,13 +31,13 @@
 #' corresponding algorithms in BUCHI NIRWise PLUS (version 1.1.3000.0),
 #' guaranteeing numerical compatibility between models built with this package
 #' and those built in NIRWise PLUS.
-#' 
-#' The ProxiScout functions for preprocessing are also numerically equivalent to the 
+#'
+#' The ProxiScout functions for preprocessing are also numerically equivalent to the
 #' ones of the "BUCHI Modeller" software. The regression method in te Modeller is
-#' teh classical PLS regression, however, the other PLS algorithms implemented 
-#' in proximetricsR (modified PLS, standard PLS, and XLS) can also be used to 
-#' generate models for ProxiScout devices. 
-#' 
+#' teh classical PLS regression, however, the other PLS algorithms implemented
+#' in proximetricsR (modified PLS, standard PLS, and XLS) can also be used to
+#' generate models for ProxiScout devices.
+#'
 #' The functions available for ProxiMate spectral data are:
 #' \itemize{
 #'   \item{\code{\link{proximate_read_data}}}
@@ -109,10 +109,10 @@
 #' @aliases proximetricsR-package proximetricsR
 #' @title Overview of the proximetricsR package
 #' @author
-#' Leonardo Ramirez-Lopez, 
-#' Claudio Orellano, 
-#' Nicolae Cudlenco, 
-#' Mai Said, 
-#' Mohamed Abushosha, 
+#' Leonardo Ramirez-Lopez,
+#' Claudio Orellano,
+#' Nicolae Cudlenco,
+#' Mai Said,
+#' Mohamed Abushosha,
 #' Marcal Plans
 "_PACKAGE"

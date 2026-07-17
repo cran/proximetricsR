@@ -23,7 +23,7 @@ test_that("Instructions to compute smoothing are correctly saved if no spectrum 
 
 test_that("Moving average with 0 sized window returns the matrix", {
   no_smooth <- process(X, prep_smooth(w = 1, algorithm = "moving-average"))
-  attr(no_smooth,"processed_wavs") <- attr(no_smooth, "preprocess_recipe") <- NULL
+  attr(no_smooth, "processed_wavs") <- attr(no_smooth, "preprocess_recipe") <- NULL
   expect_identical(no_smooth, X)
 })
 

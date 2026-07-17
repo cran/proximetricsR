@@ -102,7 +102,7 @@ prep_derivative <- function(m, w, p, algorithm = c("savitzky-golay", "gap-segmen
   if (w < 1 || w %% 2 != 1) {
     stop("'w' must be a positive odd integer.")
   }
-  
+
   # validate p
   if (!is_numeric_like(p)) {
     stop("'p' must be numeric.")

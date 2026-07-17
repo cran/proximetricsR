@@ -33,8 +33,7 @@
 #'           verbose = TRUE,
 #'           ...)
 #'
-#' \method{predict}{spectral_model}(object, newdata, ncomp = object$final_ncomp,
-#'           verbose = TRUE, ...)
+#' \method{predict}{spectral_model}(object, newdata, ncomp = object$final_ncomp, verbose = TRUE, ...)
 #'
 #' @param formula an object of class \code{\link[stats]{formula}} which represents the
 #' basic model to be calibrated.
@@ -185,8 +184,8 @@
 #'     number of components to be used.
 #'     \item \strong{\code{preprocess}}: A \code{preprocess_recipe} object mirroring the
 #'     input of the \code{preprocess} argument.
-#'     \item \strong{\code{processed_wavs}}: A \code{processed_wavs} object 
-#'     providing the spectral variables that existed in the data right before 
+#'     \item \strong{\code{processed_wavs}}: A \code{processed_wavs} object
+#'     providing the spectral variables that existed in the data right before
 #'     each preprocessing step.
 #'     \item \strong{\code{method}}: A \code{fit_constructor} object mirroring the input of
 #'     the \code{method} argument.
@@ -291,7 +290,7 @@
 #' \code{\link{fit_xlsr}},
 #'
 #' \code{\link{calibration_control}},
-#' 
+#'
 #' \code{\link{calibrate_models}}
 #'
 #' @examples
@@ -425,9 +424,9 @@ calibrate.default <- function(X, Y, data = NULL, group = NULL,
   Y <- Y[indices_for_fit, , drop = FALSE]
 
   Xp <- process(X_sub, preprocess)
-  
+
   processed_wavs <- attr(Xp, "processed_wavs")
-  
+
   wavs <- colnames(X)
   if (is.null(wavs)) {
     stop("Missing variable/column names in X")
@@ -886,9 +885,9 @@ calibrate.formula <- function(formula, data, group = NULL,
 #' @importFrom stats .MFclass terms delete.response
 #' @export
 predict.spectral_model <- function(
-    object, newdata, 
-    ncomp = object$final_ncomp,
-    verbose = TRUE, ...
+  object, newdata,
+  ncomp = object$final_ncomp,
+  verbose = TRUE, ...
 ) {
   if (missing(newdata)) {
     stop("newdata is missing")
@@ -902,7 +901,7 @@ predict.spectral_model <- function(
   if (any(!is.numeric(ncomp))) {
     stop("The component(s) for prediction must be a (vector of) numerical.")
   }
-  
+
   if (ncol(object$final_model$model$scores) < max(ncomp)) {
     if (length(ncomp) == 1) {
       stop("'ncomp' is larger than the number of components in the model")
@@ -910,11 +909,10 @@ predict.spectral_model <- function(
       stop("The maximum of 'ncomp' is larger than the number of components in the model")
     }
   }
-  
+
   if (!is.null(object$formula)) {
-    
     dcls <- object$dataclasses[-1]
-    
+
     if (!("matrix" %in% class(newdata) || "data.frame" %in% class(newdata))) {
       stop(paste0(
         "When predicting from objects of class 'calibrate' fitted with ",
@@ -922,7 +920,7 @@ predict.spectral_model <- function(
         "or alternatively a 'matrix'"
       ))
     }
-    
+
     if ("data.frame" %in% class(newdata)) {
       if (!all(names(dcls) %in% names(newdata))) {
         mss <- names(dcls)[!names(dcls) %in% names(newdata)]
@@ -932,7 +930,7 @@ predict.spectral_model <- function(
         ))
       }
     }
-    
+
     oterms <- terms(object$formula)
     oterms <- delete.response(oterms)
     attr(oterms, "intercept") <- 0
@@ -941,7 +939,7 @@ predict.spectral_model <- function(
       newdata <- model.matrix(oterms, model.frame(mf, drop.unused.levels = TRUE))
     }
     colnames(newdata) <- gsub(attr(oterms, "term.labels"), "", colnames(newdata))
-    
+
     if (object$preprocess$device == "proxiscout") {
       hw_wavs <- range(get_proxiscout_wavenumbers())
       rng_model <- range(object$processed_wavs$step_0)
@@ -951,11 +949,11 @@ predict.spectral_model <- function(
       if (min(rng_incomimg) < min(rng_model)) {
         to_exclude <- -which(min(rng_model) > wav_incomimg)
       }
-      
+
       if (max(rng_incomimg) > max(rng_model)) {
         to_exclude <- c(to_exclude, -which(max(rng_model) < wav_incomimg))
       }
-      
+
       # wav_sel <- which(
       #   is_close_to_any(hw_wavs, object$processed_wavs$step_0, tol = 0.1)
       # )
@@ -964,22 +962,22 @@ predict.spectral_model <- function(
         newdata <- newdata[, to_exclude]
       }
     }
-    
+
     if (length(object$preprocess$steps) > 0) {
       if (verbose) {
         prep_nms <- sapply(
-          object$preprocess$steps, 
+          object$preprocess$steps,
           FUN = function(x) x[[1]]
         )
         prep_nms <- gsub("prep_", "", prep_nms)
-        prep_steps_print  <- paste(prep_nms, collapse = " > ")
+        prep_steps_print <- paste(prep_nms, collapse = " > ")
         cat(
-          "\033[1;32m\033[3mProcessing 'newdata': ", 
-          prep_steps_print, 
+          "\033[1;32m\033[3mProcessing 'newdata': ",
+          prep_steps_print,
           "\n\033[0m"
         )
       }
-      
+
       mss <- "\033[1;32m\033[3mPredicting from preprocessed 'newdata'...\n\033[0m"
       newdata <- process(newdata, object$preprocess)
     } else {
@@ -988,7 +986,7 @@ predict.spectral_model <- function(
     if (verbose) {
       cat(mss)
     }
-    
+
     if (any(dcls != "numeric")) {
       if ("matrix" %in% class(newdata) & length(dcls) == 1) {
         if (.MFclass(newdata) == dcls) {
@@ -1018,18 +1016,18 @@ predict.spectral_model <- function(
     if (length(object$preprocess$steps) > 0) {
       if (verbose) {
         prep_nms <- sapply(
-          object$preprocess$steps, 
+          object$preprocess$steps,
           FUN = function(x) x[[1]]
         )
         prep_nms <- gsub("prep_", "", prep_nms)
-        prep_steps_print  <- paste(prep_nms, collapse = " > ")
+        prep_steps_print <- paste(prep_nms, collapse = " > ")
         cat(
-          "\033[1;32m\033[3mProcessing 'newdata': ", 
-          prep_steps_print, 
+          "\033[1;32m\033[3mProcessing 'newdata': ",
+          prep_steps_print,
           "\n\033[0m"
         )
       }
-      
+
       mss <- "\033[1;32m\033[3mPredicting from preprocessed 'newdata'...\n\033[0m"
       newdata <- process(newdata, object$preprocess)
     } else {
@@ -1039,17 +1037,17 @@ predict.spectral_model <- function(
       cat(mss)
     }
   }
-  if (identical(colnames(newdata) , all.vars(object$formula)[-1]) & (length(all.vars(object$formula)[-1]) == 1)) {
+  if (identical(colnames(newdata), all.vars(object$formula)[-1]) & (length(all.vars(object$formula)[-1]) == 1)) {
     newdata <- newdata[[all.vars(object$formula)[-1]]]
-  } 
-  
+  }
+
   new_data <- scale(newdata[, object$predictor_variables], center = object$final_model$model$x_means, FALSE)
   relevant_coefs <- object$final_model$model$coefficients[ncomp, , drop = FALSE]
-  
-  
+
+
   predictions <- new_data %*% t(relevant_coefs) + object$final_model$model$intercept
-  
-  
+
+
   if (!is.null(rownames(newdata))) {
     rownames(predictions) <- rownames(newdata)
   } else {
@@ -1060,7 +1058,7 @@ predict.spectral_model <- function(
   } else {
     colnames(predictions) <- paste0("ncomp_", ncomp)
   }
-  
+
   model_information <- list(
     target_var = object$target_variable,
     preprocess_recipe = object$preprocess,
@@ -1068,7 +1066,7 @@ predict.spectral_model <- function(
     unit = object$metadata$Unit,
     opt_comp = object$final_ncomp
   )
-  
+
   scores <- new_data %*% t(object$final_model$model$projection_m)
   rownames(scores) <- rownames(predictions)
   results <- list(
@@ -1079,5 +1077,3 @@ predict.spectral_model <- function(
   class(results) <- c("spectral_prediction", "list")
   results
 }
-
-

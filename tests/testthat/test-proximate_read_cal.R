@@ -27,8 +27,10 @@ test_that("proximate_read_cal summary is a data.frame", {
 test_that("proximate_read_cal summary has the expected columns", {
   skip_on_cran()
   result <- suppressWarnings(proximate_read_cal(cal_file, ignore_version = TRUE))
-  expected_cols <- c("Property", "Preprocessing", "Method", "Factors",
-                     "Cross-validation", "Auto-skip")
+  expected_cols <- c(
+    "Property", "Preprocessing", "Method", "Factors",
+    "Cross-validation", "Auto-skip"
+  )
   expect_true(all(expected_cols %in% colnames(result$summary)))
 })
 
@@ -106,7 +108,7 @@ test_that("predict.read_cal returns a list with predictions and distances", {
   skip_on_cran()
   result <- suppressWarnings(proximate_read_cal(cal_file, ignore_version = TRUE))
   # Use the wavelengths from the first model to build minimal newdata.
-  wavs   <- result$models[[1]]$Wavelengths
+  wavs <- result$models[[1]]$Wavelengths
   newdat <- matrix(
     rnorm(length(wavs)),
     nrow = 1,
@@ -119,7 +121,7 @@ test_that("predict.read_cal returns a list with predictions and distances", {
 test_that("predict.read_cal predictions is a named list", {
   skip_on_cran()
   result <- suppressWarnings(proximate_read_cal(cal_file, ignore_version = TRUE))
-  wavs   <- result$models[[1]]$Wavelengths
+  wavs <- result$models[[1]]$Wavelengths
   newdat <- matrix(
     rnorm(2 * length(wavs)),
     nrow = 2,
@@ -133,7 +135,7 @@ test_that("predict.read_cal predictions is a named list", {
 test_that("predict.read_cal distances has the same names as predictions", {
   skip_on_cran()
   result <- suppressWarnings(proximate_read_cal(cal_file, ignore_version = TRUE))
-  wavs   <- result$models[[1]]$Wavelengths
+  wavs <- result$models[[1]]$Wavelengths
   newdat <- matrix(
     rnorm(3 * length(wavs)),
     nrow = 3,

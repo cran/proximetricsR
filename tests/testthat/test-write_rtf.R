@@ -2,7 +2,7 @@ data("NIRcannabis", package = "proximetricsR")
 
 gen_rtf_file_from_model <- function(object, application_name, property_name) {
   temporary_dir <- tempdir()
-  
+
   wh_models <- "final_model"
   if (!is.null(object$initial_fit)) {
     wh_models <- c(wh_models, "initial_fit")
@@ -26,7 +26,7 @@ gen_rtf_file_from_model <- function(object, application_name, property_name) {
     object[[wh_model]]$model$y_quantiles <- round(object[[wh_model]]$model$y_quantiles, digits = 5)
     object[[wh_model]]$model$explained_variance$x_variance <- round(object[[wh_model]]$model$explained_variance$x_variance, digits = 5)
     object[[wh_model]]$model$explained_variance$y_variance <- round(object[[wh_model]]$model$explained_variance$y_variance, digits = 5)
-    
+
     # ... for model_cv
     if (!is.null(object[[wh_model]]$model_cv$grid)) {
       object[[wh_model]]$model_cv$grid <- round(object[[wh_model]]$model_cv$grid, digits = 5)
@@ -34,7 +34,7 @@ gen_rtf_file_from_model <- function(object, application_name, property_name) {
     if (!is.null(object[[wh_model]]$model_cv$predicted)) {
       object[[wh_model]]$model_cv$predicted <- round(object[[wh_model]]$model_cv$predicted, digits = 5)
     }
-    
+
     # ... for calibration_statistics_all
     object[[wh_model]]$calibration_statistics_all$fitted_y <- round(object[[wh_model]]$calibration_statistics_all$fitted_y, digits = 5)
     object[[wh_model]]$calibration_statistics_all$residual <- round(object[[wh_model]]$calibration_statistics_all$residual, digits = 5)
@@ -47,11 +47,11 @@ gen_rtf_file_from_model <- function(object, application_name, property_name) {
       object[[wh_model]]$calibration_statistics_all$Q_value <-
         round(object[[wh_model]]$calibration_statistics_all$Q_value, digits = 5)
     }
-    
+
     # ... and the preprocessed X
     object$preprocessed_X <- round(object$preprocessed_X, digits = 5)
   }
-  
+
   proximetricsR:::write_rtf(
     list(object),
     tsv_path = "", application_name = application_name,

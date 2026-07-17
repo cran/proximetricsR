@@ -39,15 +39,15 @@
 #'     \item \strong{\code{rtf_info}:} a list with:
 #'         \itemize{
 #'             \item \strong{\code{summary}:} a summary of the calibration models
-#'             as printed in the calibration reports contained in the nax file. 
-#'             This includes the optimal number of components suggested 
+#'             as printed in the calibration reports contained in the nax file.
+#'             This includes the optimal number of components suggested
 #'             (\code{ncomp}).
 #'             }
 #'     \item \strong{\code{data}:} a list with:
 #'         \itemize{
 #'             \item \strong{\code{summary}:} a summary of the calibration data (tsv
 #'             files) contained in the ProxiMate application.
-#'             \item \strong{\code{data}:} a \code{list} with the calibration data 
+#'             \item \strong{\code{data}:} a \code{list} with the calibration data
 #'             found in all the tsv files.
 #'             }
 #'  }
@@ -100,17 +100,17 @@ proximate_read_nax <- function(file, ignore_version = FALSE) {
 
   # check project files
   prjf_wext <- lfiles[grep(".prj$", lfiles)]
-  
+
   # check the cal files
   calf_wext <- lfiles[grep(".cal$", lfiles)]
   calf <- get_fname(calf_wext)
   cal_properties <- gsub(paste0(nad_info$summary$app_name, "."), "", calf)
-  
+
   cal_idx <- sapply(
-    nad_info$summary$properties$names, 
+    nad_info$summary$properties$names,
     FUN = function(x, x2) {
       which(x == x2)
-    }, 
+    },
     x2 = cal_properties
   )
 
@@ -129,10 +129,10 @@ proximate_read_nax <- function(file, ignore_version = FALSE) {
     rtff <- get_fname(rtfs)
     rtf_properties <- gsub(paste0(nad_info$summary$app_name, "."), "", rtff)
     rtf_idx <- sapply(
-      nad_info$summary$properties$names, 
+      nad_info$summary$properties$names,
       FUN = function(x, x2) {
         which(x == x2)
-      }, 
+      },
       x2 = rtf_properties
     )
     rtfs_ok <- all(tolower(nad_info$summary$properties$names) %in% tolower(rtf_properties))
@@ -144,10 +144,10 @@ proximate_read_nax <- function(file, ignore_version = FALSE) {
         stop("Problem with the rtf file(s)")
       }
       oncomps <- sapply(rtf_info$summary, FUN = function(x) x$ncomp)
-      
+
       if (!any(is.na(oncomps))) {
         if (inherits(cal_info$summary, "data.frame")) {
-          if (!identical(oncomps,  cal_info$summary$Factors)) {
+          if (!identical(oncomps, cal_info$summary$Factors)) {
             warning("The number of components in the rtf reports and the cal files do not match for one or more models")
           }
         }
@@ -264,7 +264,7 @@ get_info_tsvs <- function(files) {
   ldata <- NULL
   mfiles <- c(files_main, files_local)
   fsummary <- data.frame(
-    Index = rep(NA, length(mfiles)), 
+    Index = rep(NA, length(mfiles)),
     File = rep(NA, length(mfiles))
   )
   fsummary$n <- NA
@@ -305,12 +305,11 @@ get_info_tsvs <- function(files) {
         is_empty <- TRUE
       }
     }
-    
-    
+
+
     fsummary$File[idx] <- i |> get_fname()
     fsummary$Location[idx] <- ifelse(grepl("/Data/", i), "Data", "Local")
     if (!is_empty) {
-      
       if (!is_tsv) {
         stop("Corrupted tsv")
       }
@@ -398,21 +397,21 @@ read_rtfs <- function(files) {
     comp_tab[] <- comp_tab |>
       unlist() |>
       as.numeric()
-    
+
     if (length(idx_suggested) == 0) {
       # warning("Missing optimal components suggestion in the rtf report")
       suggested_comp <- NA
     } else {
       suggested_comp <- comp_tab[idx_suggested - 1, 1]
     }
-    
+
     irtf <- substr(irtf, gregexpr("Sample", irtf), nchar(irtf))
     irtf <- strsplit(irtf, "\r\n\\par", fixed = TRUE)[[1]]
     tabr <- irtf[1:(length(irtf) - 1)]
     tabr <- lapply(tabr, FUN = clean_row)
 
-    tabm <- do.call("rbind", tabr[-1]) |> 
-      apply(MARGIN = 2, FUN = function(x) gsub("\\\\f0|\\\\f1", "", x)) |> 
+    tabm <- do.call("rbind", tabr[-1]) |>
+      apply(MARGIN = 2, FUN = function(x) gsub("\\\\f0|\\\\f1", "", x)) |>
       as.data.frame()
     colnames(tabm) <- tabr[[1]][!is.na(tabr[[1]])]
     tabm <- tabm[, !is.na(colnames(tabm))]
@@ -436,7 +435,7 @@ read_rtfs <- function(files) {
     fsummary[[i]] <- list(
       name = get_fname(ith_file),
       description = comp_tab,
-      cal_results = tabm, 
+      cal_results = tabm,
       ncomp = suggested_comp
     )
   }
@@ -449,7 +448,7 @@ read_rtfs <- function(files) {
 #       "^BUCHI [A-Z a-z]{1,}Licensed",
 #       readBin(i, what = "raw", n = 50)
 #     ) |> length() > 0
-#     
+#
 #     if (is_protected) {
 #       message("Protected prj file(s). These will not be read.")
 #       return(list(
@@ -457,14 +456,14 @@ read_rtfs <- function(files) {
 #       ))
 #       break
 #     }
-#     
+#
 #     bf <- readLines(i, warn = FALSE)
 #     tsvs <- bf[grep("Files:File", bf)]
 #     tsvs <- tsvs[grep("\\.tsv", tsvs)]
 #     tsvs <- tsvs[grep("#TRUE#", tsvs)]
 #     tsvs <- gsub("\\\"", "", tsvs)
 #     strsplit(tsvs, ",")
-#     
+#
 #   }
-#   
+#
 # }

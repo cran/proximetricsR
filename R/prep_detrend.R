@@ -49,7 +49,8 @@
 #'
 #' # Barnes et al. (1989): SNV followed by detrend
 #' recipe_barnes <- preprocess_recipe(
-#'   prep_snv(), prep_detrend(p = 2), device = "unspecified"
+#'   prep_snv(), prep_detrend(p = 2),
+#'   device = "unspecified"
 #' )
 #' X_barnes <- process(X, recipe_barnes)
 #'
@@ -57,12 +58,14 @@
 #' \code{\link{process}}
 #' @export
 prep_detrend <- function(p = 2) {
-  if (!is_numeric_like(p))
+  if (!is_numeric_like(p)) {
     stop("'p' must be numeric.")
+  }
   p <- as.integer(p)
-  if (p < 1)
+  if (p < 1) {
     stop("'p' must be an integer >= 1.")
-  
+  }
+
   structure(
     list(
       method = "prep_detrend",
@@ -76,7 +79,7 @@ prep_detrend <- function(p = 2) {
 #' @noRd
 .exec_detrend <- function(X, step) {
   wav <- as.numeric(colnames(X))
-  if (any(is.na(wav))) { 
+  if (any(is.na(wav))) {
     wav <- seq_len(ncol(X))
   }
   prospectr::detrend(X, wav = wav, p = step$p, snv = FALSE, method = "raw")

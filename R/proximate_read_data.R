@@ -108,7 +108,7 @@ proximate_read_data <- function(file) {
       shift_pixel = shift_pixels[i]
     )
   }
-  
+
   datar <- ftsv[, -grep("^#(X[0-9]|[0-9]+)", colnames(ftsv))]
   datar$spc <- as.matrix(ftsv[, grep("^#[0-9]+", colnames(ftsv))])
   # Use helper function to decide on wavelengths
@@ -158,7 +158,6 @@ proximate_read_data <- function(file) {
 }
 
 
-
 #' @title Set wavelengths
 #' @description
 #' This helper function returns the wavelengths for the spectra in the `spc` column of the
@@ -199,10 +198,14 @@ set_wavelengths <- function(wavs, ncols_spc) {
 #' @noRd
 decide_shift_pixel <- function(coeff) {
   # If there are exactly 6 columns, the coefficients must be shifted
-  if (ncol(coeff) == 6) return(TRUE)
+  if (ncol(coeff) == 6) {
+    return(TRUE)
+  }
   # If there are exactly 3 columns and the first coefficients are zero, the
   # coefficients must be shifted
-  if (ncol(coeff) == 3 && sum(coeff[, 1]) == 0) return(TRUE)
+  if (ncol(coeff) == 3 && sum(coeff[, 1]) == 0) {
+    return(TRUE)
+  }
   # Otherwise, return FALSE
   FALSE
 }

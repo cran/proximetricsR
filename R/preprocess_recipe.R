@@ -88,14 +88,13 @@
 #' attr(X_proc, "preprocess_recipe")
 #' @export
 preprocess_recipe <- function(..., device) {
-  
   steps <- list(...)
-  
+
   # Identify the SNV-only special case: single step that is prep_snv
   is_snv_only <- length(steps) == 1 &&
     inherits(steps[[1]], "preprocessing") &&
     isTRUE(steps[[1]]$method == "prep_snv")
-  
+
   if (length(steps) > 0) {
     if (missing(device)) {
       if (is_snv_only) {
@@ -110,11 +109,12 @@ preprocess_recipe <- function(..., device) {
       }
     }
   } else {
-    if (missing(device))
+    if (missing(device)) {
       device <- "unspecified"
+    }
   }
   device <- match.arg(device, c("unspecified", "proximate", "proxiscout"))
-  
+
   if (length(steps) > 0) {
     not_processing <- !sapply(steps, function(s) inherits(s, "preprocessing"))
     if (any(not_processing)) {
@@ -124,7 +124,7 @@ preprocess_recipe <- function(..., device) {
         paste(which(not_processing), collapse = ", "), "."
       )
     }
-    
+
     if (device != "unspecified") {
       valid <- .device_steps[[device]]
       hints <- .device_hints[[device]]
@@ -138,7 +138,7 @@ preprocess_recipe <- function(..., device) {
           paste0("  - ", hints, collapse = "\n")
         )
       }
-      
+
       for (step in steps) {
         cd <- step$compatible_devices
         if (!is.null(cd) && cd != "unspecified" && !device %in% cd) {
@@ -152,7 +152,7 @@ preprocess_recipe <- function(..., device) {
       }
     }
   }
-  
+
   preprocessing_order <- paste(
     gsub(
       "^prep_",
@@ -169,12 +169,11 @@ preprocess_recipe <- function(..., device) {
           }
         }
         yy
-      }
-      )
+      })
     ),
     collapse = " > "
   )
-  
+
   structure(
     list(
       steps = steps,
@@ -207,21 +206,23 @@ print.preprocess_recipe <- function(x, ...) {
 #' @export process
 process <- function(X, recipe, device = c("unspecified", "proximate", "proxiscout")) {
   device <- match.arg(device)
-  if (inherits(recipe, "preprocessing"))
+  if (inherits(recipe, "preprocessing")) {
     recipe <- preprocess_recipe(recipe, device = device)
-  
-  if (!inherits(recipe, "preprocess_recipe"))
+  }
+
+  if (!inherits(recipe, "preprocess_recipe")) {
     stop("'recipe' must be of class 'preprocess_recipe' or 'preprocessing'.")
-  
+  }
+
   wavs <- list(step_0 = as.numeric(colnames(X)))
   for (step in recipe$steps) {
-    i <- length(wavs) 
+    i <- length(wavs)
     X <- .dispatch_step(X, step)
     wavs[[paste0("step_", i)]] <- as.numeric(colnames(X))
   }
-  
+
   class(wavs) <- c("processed_wavs", "list")
-  
+
   attr(X, "preprocess_recipe") <- recipe
   attr(X, "processed_wavs") <- wavs
   X
@@ -233,10 +234,10 @@ print.processed_wavs <- function(x, ...) {
   cat("Spectral variables by preprocessing step:\n")
   cat(
     paste0(
-      "  ", names(x), 
+      "  ", names(x),
       ": ", sapply(x, length), " spectral variables",
       collapse = "\n"
-    ), 
+    ),
     "\n"
   )
   invisible(x)
@@ -244,8 +245,7 @@ print.processed_wavs <- function(x, ...) {
 
 #' @noRd
 .dispatch_step <- function(X, step) {
-  switch(
-    step$method,
+  switch(step$method,
     prep_derivative = .exec_derivative(X, step),
     prep_smooth = .exec_smooth(X, step),
     prep_snv = .exec_snv(X, step),
@@ -283,18 +283,18 @@ print.processed_wavs <- function(x, ...) {
 # Keep in sync with .device_steps.
 .device_hints <- list(
   proximate = c(
-    'prep_resample(grid = c(min_wav, max_wav, resolution))',
+    "prep_resample(grid = c(min_wav, max_wav, resolution))",
     'prep_smooth(w, algorithm = "moving-average")',
-    'prep_snv()',
+    "prep_snv()",
     'prep_derivative(m, w, p, algorithm = "nwp")'
   ),
   proxiscout = c(
     'prep_resample(grid = "proxiscout")',
     'prep_smooth(w, p, algorithm = "savitzky-golay")',
-    'prep_snv()',
+    "prep_snv()",
     'prep_derivative(m, w, p, algorithm = c("savitzky-golay", "gap-segment"))',
-    'prep_detrend()',
-    'prep_transform()',
-    'prep_wav_trim()'
+    "prep_detrend()",
+    "prep_transform()",
+    "prep_wav_trim()"
   )
 )

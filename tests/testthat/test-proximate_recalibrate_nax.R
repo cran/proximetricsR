@@ -12,7 +12,7 @@ test_that("proximate_recalibrate_nax errors when x is not a nax object", {
   expect_error(
     warnings_emitted <- testthat::capture_warnings(
       proximate_recalibrate_nax(
-        x = list(),  # Not a nax object
+        x = list(), # Not a nax object
         name = "test"
       )
     ),
@@ -37,4 +37,3 @@ test_that("proximate_recalibrate_nax returns early with warning for protected mo
   )
   expect_null(result)
 })
-

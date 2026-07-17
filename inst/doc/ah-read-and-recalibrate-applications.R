@@ -16,7 +16,7 @@ old_options <- options(digits = 3)
 
 # Load package, or use devtools::load_all() if in development
 if (!requireNamespace("proximetricsR", quietly = TRUE)) {
-  devtools::load_all()
+  pkgload::load_all()
 }
 library("proximetricsR")
 

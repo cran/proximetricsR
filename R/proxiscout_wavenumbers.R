@@ -4,13 +4,13 @@
 #' @details
 #' The standard wavenumbers of ProxiScout (see
 #' \href{https://www.si-ware.com/}{https://www.si-ware.com/}) NIR scanners range
-#' from approximately 3921.569 \eqn{cm^{-1}} to 7407.407 \eqn{cm^{-1}} in steps 
-#' (resolution) of around 13.61655 \eqn{cm^{-1}}. This is equivalent to a 
-#' spectral range of 1350 to 2550 nm, with a varying resolution that starts 
-#' from 2.486189 nm at 1350 nm and ends with a resolution of 8.823525 nm at 
+#' from approximately 3921.569 \eqn{cm^{-1}} to 7407.407 \eqn{cm^{-1}} in steps
+#' (resolution) of around 13.61655 \eqn{cm^{-1}}. This is equivalent to a
+#' spectral range of 1350 to 2550 nm, with a varying resolution that starts
+#' from 2.486189 nm at 1350 nm and ends with a resolution of 8.823525 nm at
 #' 2550 nm.
 #'
-#' @return A numeric vector containing the standard wavenumbers of ProxiScout 
+#' @return A numeric vector containing the standard wavenumbers of ProxiScout
 #' NIR scanners.
 #' @examples
 #' # Get the complete set of ProxiScout wavenumbers

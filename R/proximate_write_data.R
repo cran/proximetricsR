@@ -9,8 +9,17 @@
 #' spectra along with response variables and metainformation (e.g. sample ID,
 #' date, comments, etc).
 #' @usage
-#' proximate_write_data(x, file, id, spc, spc_round = 8, barcode = "", properties = NULL,
-#'           note = "", recipe = "", created, snr)
+#' proximate_write_data(x, 
+#'                      file, 
+#'                      id, 
+#'                      spc, 
+#'                      spc_round = 8, 
+#'                      barcode = "", 
+#'                      properties = NULL, 
+#'                      note = "", 
+#'                      recipe = "", 
+#'                      created, 
+#'                      snr)
 #' @param x a data.frame of spectral data and metadata, for which the tab
 #' separated value file should be generated. See details.
 #' @param file a character for the path (and name) in which the tsv will be saved.
@@ -89,7 +98,7 @@
 #' @author Leonardo Ramirez-Lopez
 #' @export
 proximate_write_data <- function(x, file, id, spc = "spc", spc_round = 8, barcode = x$Barcode,
-                      properties = NULL, note = x$Note, recipe = x$Recipe, created, snr) {
+                                 properties = NULL, note = x$Note, recipe = x$Recipe, created, snr) {
   if (missing(created)) {
     if (!is.null(x$Created)) {
       get_date <- sapply(x$Created,

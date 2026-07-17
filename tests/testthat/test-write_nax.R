@@ -3,7 +3,6 @@ data("NIRcannabis", package = "proximetricsR")
 # Generates a nax file, returns the path to the file
 gen_nax_file_from_model <- function(object, temporary_dir, application_name, ext_props, app_meta) {
   for (i in seq_along(object)) {
-
     # Reduce precision to try and avoid checking for machine precision
     # ... for the models
     object[[i]]$final_model$model$intercept <- round(object[[i]]$final_model$model$intercept, digits = 5)

@@ -1,4 +1,4 @@
-# 
+#
 # as.spectra <- function(x,
 #                        freq = NULL,
 #                        freq_units = NULL,
@@ -6,11 +6,11 @@
 #   if (is.data.frame(x)) {
 #     x <- as.matrix(x)
 #   }
-# 
+#
 #   if (!(is.matrix(x) | is.vector(x))) {
 #     stop("x must be of class matrix, vector or data.frame")
 #   }
-# 
+#
 #   if (is.vector(x)) {
 #     name_f <- base::names
 #     assign_names <- function(x, names) {
@@ -28,7 +28,7 @@
 #     }
 #     n_vars <- ncol(x)
 #   }
-# 
+#
 #   if (varnames_to_freq) {
 #     freq <- name_f(x)
 #     freq <- gsub("^X.", "", freq)
@@ -38,44 +38,44 @@
 #       },
 #       simplify = TRUE, USE.NAMES = FALSE
 #     )
-# 
+#
 #     if (any(!names_val)) {
 #       stop("frequency cannot be inferred from the variable names")
 #     }
 #     freq <- as.numeric(freq)
 #   }
-# 
+#
 #   if (!is.null(freq)) {
 #     attr(x, "frequency") <- freq
 #     x <- assign_names(x, freq)
 #   }
-# 
+#
 #   if (!is.null(freq_units)) {
 #     attr(x, "frequency_units") <- freq_units
 #   }
-# 
+#
 #   attr(x, "n_vars") <- n_vars
-# 
+#
 #   class(x) <- c("spectra", class(x))
 #   x
 # }
-# 
+#
 # is.spectra <- function(x) {
 #   "spectra" %in% class(x)
 # }
-# 
-# 
+#
+#
 # "[.spectra" <- function(x, i, j, drop = TRUE, ...) {
 #   if (!is.spectra(x)) stop("method is only for spectra objects")
 #   org_classes <- class(x)
 #   class(x) <- org_classes[!org_classes %in% "spectra"]
-# 
+#
 #   n <- NROW(x)
 #   n2 <- ifelse(nargs() == 1, length(as.vector(x)), n)
 #   if (missing(i)) {
 #     i <- 1:n
 #   }
-# 
+#
 #   if (inherits(i, "matrix")) {
 #     i <- as.vector(i)
 #   }
@@ -84,7 +84,7 @@
 #   if (inherits(i, "logical")) {
 #     i <- which(rep(i, length.out = n2))
 #   }
-# 
+#
 #   freq <- attr(x, "frequency")[j]
 #   freq_units <- attr(x, "frequency_units")
 #   if (length(dim(x)) == 2) {
@@ -94,7 +94,7 @@
 #     } else {
 #       x[i, j, drop = drop., ...]
 #     }
-# 
+#
 #     if (drop && length(x) == 1) {
 #       x <- c(x)
 #     }
@@ -110,7 +110,7 @@
 #   }
 #   return(x)
 # }
-# 
+#
 # rev.spectra <- function(x) {
 #   var_freq <- attr(x, "frequency")
 #   if (is.null(var_freq)) {
@@ -124,6 +124,6 @@
 #   }
 #   x
 # }
-# 
-# 
+#
+#
 # # summary.spectra <- function()

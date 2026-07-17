@@ -2,8 +2,8 @@ Package: proximetricsR
 Type: Package
 Title: Spectral Preprocessing and Chemometric Calibration of NIR
         Sensors
-Version: 0.6.4
-Date: 2026-06-22
+Version: 0.6.5
+Date: 2026-07-17
 Authors@R: c(
     person(given = "Leonardo",
            family = "Ramirez-Lopez",
@@ -46,7 +46,7 @@ Depends: R (>= 4.2.0)
 Imports: callr, digest (>= 0.6), foreach, mathjaxr (>= 1.0), plotly (>=
         4.0), prospectr (>= 0.2.10), quarto, uuid, withr, zip, readxl,
         jsonlite, Rcpp
-Suggests: knitr, testthat, covr, doParallel, parallel, devtools
+Suggests: knitr, testthat, covr, doParallel, parallel, pkgload
 LinkingTo: Rcpp, RcppArmadillo
 RdMacros: mathjaxr
 NeedsCompilation: yes
@@ -54,10 +54,10 @@ LazyData: true
 LazyDataCompression: xz
 Encoding: UTF-8
 Config/testthat/edition: 3
-Config/VersionName: Saentis
+Config/VersionName: Matterhorn
 Config/roxygen2/version: 8.0.0
 Config/roxygen2/markdown: TRUE
-Packaged: 2026-06-25 17:37:39 UTC; leo
+Packaged: 2026-07-17 22:11:23 UTC; leo
 Author: Leonardo Ramirez-Lopez [aut, cre] (ORCID:
     <https://orcid.org/0000-0002-5369-5120>),
   Claudio Orellano [aut] (ORCID: <https://orcid.org/0009-0005-7523-4236>),
@@ -66,4 +66,4 @@ Author: Leonardo Ramirez-Lopez [aut, cre] (ORCID:
   Mohamed Abushosha [aut],
   Marcal Plans [aut] (ORCID: <https://orcid.org/0000-0001-9894-2626>)
 Repository: CRAN
-Date/Publication: 2026-06-30 20:30:07 UTC
+Date/Publication: 2026-07-17 23:10:13 UTC

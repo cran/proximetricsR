@@ -249,7 +249,7 @@ write_cal <- function(object, path, tsv_paths = "", application_name = "Untitled
       # "Version 1.0" signals the prediction engine to use the current (non-legacy)
       # algorithm variants. All prep_* constructors use the current behaviour.
       v1 <- TRUE
-      
+
       pp_output <- paste(
         paste0("\r\nPretreat1:Treat", seq_along(applied_pp)),
         mapply(prepro_to_string, applied_pp),

@@ -7,11 +7,9 @@
 #' which can be deployed into ProxiMate sensors.
 #'
 #' @usage
-#' proximate_write_nax(
-#'    object, path, metadata, tsv_name, empty_tsv_name, spc = "spc",
-#'    external_properties = NULL, report = TRUE, verbose = TRUE,
-#'    internal_prj_path = NULL
-#' )
+#' proximate_write_nax(object, path, metadata, tsv_name, empty_tsv_name, 
+#'                     spc = "spc", external_properties = NULL, report = TRUE, 
+#'                     verbose = TRUE, internal_prj_path = NULL)
 #'
 #' @param object a list of objects of class \code{spectral_model}, as generated
 #' by \code{\link{calibrate}}. Note that at least one of these models must contain
@@ -166,8 +164,8 @@
 #' @export
 
 proximate_write_nax <- function(object, path, metadata, tsv_name, empty_tsv_name,
-                      spc = "spc", external_properties = NULL, report = TRUE,
-                      verbose = TRUE, internal_prj_path = NULL) {
+                                spc = "spc", external_properties = NULL, report = TRUE,
+                                verbose = TRUE, internal_prj_path = NULL) {
   # Save working directory
 
   my_wd <- getwd()

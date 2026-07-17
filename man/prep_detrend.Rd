@@ -46,7 +46,8 @@ X_dt <- process(X, recipe)
 
 # Barnes et al. (1989): SNV followed by detrend
 recipe_barnes <- preprocess_recipe(
-  prep_snv(), prep_detrend(p = 2), device = "unspecified"
+  prep_snv(), prep_detrend(p = 2),
+  device = "unspecified"
 )
 X_barnes <- process(X, recipe_barnes)
 

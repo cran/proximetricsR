@@ -35,7 +35,6 @@ test_that("add_model_metadata can be added to an object of class 'spectral_model
 ############################################
 
 
-
 test_that("add_model_metadata defaults are named correctly", {
   model_metadata_names <- c(
     "Key", "Created", "Changed", "Name", "Alias", "SortOrder", "ToleranceMin",

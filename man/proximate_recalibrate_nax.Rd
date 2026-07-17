@@ -4,12 +4,12 @@
 \alias{proximate_recalibrate_nax}
 \title{Recalibrate a nax file}
 \usage{
-proximate_recalibrate_nax(x, 
-                preprocess_recipes = NULL,
-                methods = NULL,
-                control = calibration_control(seed = 1),
-                name,
-                add = NULL)
+proximate_recalibrate_nax(x,
+                          preprocess_recipes = NULL,
+                          methods = NULL,
+                          control = calibration_control(seed = 1),
+                          name,
+                          add = NULL)
 }
 \arguments{
 \item{x}{an object of class \code{nax} as returned by the

@@ -152,7 +152,7 @@ test_that("proximate_merge resamples second dataset to match first", {
   warnings_emitted <- testthat::capture_warnings(
     result <- proximate_merge(list(data1, data2))
   )
-  
+
   expect_length(warnings_emitted, 2)
   expect_match(warnings_emitted, "have been introduced in the spectra", all = FALSE)
   expect_match(warnings_emitted, "have been introduced in the spectra", all = FALSE)
@@ -163,8 +163,8 @@ test_that("proximate_merge resamples second dataset to match first", {
 })
 
 test_that("proximate_merge sets NA for spectral data outside range", {
-  wavs1 <- seq(1000, 2000, by = 50)  # Wide range
-  wavs2 <- seq(1200, 1600, by = 50)  # Narrow range
+  wavs1 <- seq(1000, 2000, by = 50) # Wide range
+  wavs2 <- seq(1200, 1600, by = 50) # Narrow range
 
   data1 <- create_mock_proximate_data(n_samples = 3, wavs = wavs1)
   data2 <- create_mock_proximate_data(n_samples = 2, wavs = wavs2)
@@ -224,13 +224,14 @@ test_that("proximate_merge warns about different property sets", {
 
   # Add extra property to data2
   data3 <- data.frame(
-    data2[, 1:12], Property3 = rnorm(3), 
+    data2[, 1:12],
+    Property3 = rnorm(3),
     data2[, 13:17]
   )
 
   data3$spc <- data2$spc
   class(data3) <- c("proximate_data", "data.frame")
-  
+
   expect_warning(
     result <- proximate_merge(list(data1, data3)),
     "properties seems different"
@@ -458,5 +459,3 @@ test_that("proximate_merge handles single sample datasets", {
 
   expect_equal(nrow(result), 2)
 })
-
-

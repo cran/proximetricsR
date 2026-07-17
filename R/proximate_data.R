@@ -107,7 +107,7 @@
 #' @examples
 #' data("NIRcannabis")
 #' dat <- NIRcannabis
-#' 
+#'
 #' # Reconstruct NIRcannabis with properties in a different order
 #' spc <- dat$spc
 #' properties <- matrix(
@@ -119,12 +119,12 @@
 #'   date = dat$Date, snr = dat$SNR, barcode = dat$Barcode,
 #'   note = dat$Note, begin = dat$Begin, end = dat$End, recipe = dat$Recipe
 #' )
-#' 
+#'
 #' # They are similar to each other (except the order of properties):
 #' dat_refs <- which(names(dat) %in% c("Reference", colnames(properties)))
 #' datc_refs <- which(names(datc) %in% c("Reference", colnames(properties)))
 #' all.equal(dat[, -dat_refs], datc[, -datc_refs]) # TRUE
-#' 
+#'
 #' # In case of non-constant wavelengths, have to pass the coefficients to the function.
 #' # Coefficients are usually given as #X1, #X2, #X3 in ProxiMate .tsv files,
 #' # e.g. using coefficients example of vignette(Structure-of-the-application-files):
@@ -136,7 +136,7 @@
 #'     c(2.04E-10, -1.28E-07, 2.80E-05, -4.76e-3, 3.89, 880.06)
 #'   )
 #' )
-#' 
+#'
 #' # You can extract the wavelengths in nm using these coefficients like this:
 #' # Note that NIR pixels must be shifted by one to the right, as they are zero-based
 #' pixel_seq <- list((coeffs$X1[1]:coeffs$X2[1]), (coeffs$X1[2]:coeffs$X2[2]) + 1)
@@ -149,15 +149,15 @@
 #'   FUN = function(x) coeffs$X3[[2]] %*% c(x^5, x^4, x^3, x^2, x^1, 1)
 #' )
 #' wavs <- c(vis_wavs, nir_wavs)
-#' 
+#'
 #' # Above coefficients now have to be passed to the proximate_data()
 #' # function since there are non-constant wavelengths.
-#' 
+#'
 #' # If we (wrongly) assume that NIRcannabis has such wavelengths:
 #' rand_mat <- matrix(rnorm((length(wavs) - ncol(spc)) * nrow(spc)), nrow = nrow(spc))
 #' spc <- cbind(rand_mat, spc)
 #' colnames(spc) <- wavs
-#' 
+#'
 #' # Now we can create data object with coefficients
 #' datcc <- proximate_data(
 #'   spc, dat$ID, properties, dat$ROW,
@@ -165,13 +165,13 @@
 #'   note = dat$Note, begin = dat$Begin, end = dat$End, recipe = dat$Recipe,
 #'   coeffs = coeffs
 #' )
-#' 
+#'
 #' # Coefficients can be viewed with
 #' attr(datcc, "coeffs")
 #' @export
 proximate_data <- function(spc, id, properties = NULL, row = seq_len(nrow(spc)), check = "True", date = Sys.time(),
-                            snr = NULL, barcode = "", note = "", begin = Sys.time(), end = Sys.time(),
-                            recipe = "", coeffs = NULL) {
+                           snr = NULL, barcode = "", note = "", begin = Sys.time(), end = Sys.time(),
+                           recipe = "", coeffs = NULL) {
   if (missing(spc)) {
     stop("'spc' is missing.")
   }

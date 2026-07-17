@@ -15,7 +15,7 @@
 #' @return A list containing calibration statistics including residuals, predicted values, Mahalanobis distance, and Q-values.
 #' @keywords internal
 .calibration_statistics <- function(y, fitted_y, predicted_y_in_cv = NULL,
-                                       scaled_scores, ncomp) {
+                                    scaled_scores, ncomp) {
   residual <- sweep(-fitted_y[, ncomp, drop = FALSE], MARGIN = 1, STATS = y, FUN = "+")
 
   if (!is.null(predicted_y_in_cv)) {

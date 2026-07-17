@@ -37,7 +37,7 @@ test_that("second derivative with smoothing works", {
 })
 
 test_that("Order and windows are automatically coerced to integer", {
-  expect_identical(prep_derivative(m = "1.5", w = "3.1", p = as.character(pi*2.5), algorithm = "nwp"), derivative_noX)
+  expect_identical(prep_derivative(m = "1.5", w = "3.1", p = as.character(pi * 2.5), algorithm = "nwp"), derivative_noX)
 })
 
 #################

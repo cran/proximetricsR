@@ -38,32 +38,31 @@
 #' # to do
 #' @export
 proximate_merge <- function(x) {
-  
   if (!is.list(x) || is.data.frame(x)) {
     stop("'x' must be a list of 'proximate_data' objects")
   }
-  
+
   x <- x[!sapply(x, FUN = is.null)]
-  
+
   no_nwp <- any(sapply(x, FUN = function(x) !inherits(x, "proximate_data")))
   if (no_nwp) {
     stop("'x' must contain data of class 'proximate_data'")
   }
-  
+
   no_spc <- any(sapply(x, FUN = function(x) is.null(x$spc)))
   if (no_spc) {
     stop("Elements in 'x' must have a column named 'spc'")
   }
-  
+
   no_id <- any(sapply(x, FUN = function(x) is.null(x$ID)))
   if (no_id) {
     stop("Elements in 'x' must have a column named 'ID'")
   }
-  
+
   mproperty <- function(x) {
     ps <- grep("Reference", colnames(x)) + 1
     pf <- grep("Begin", colnames(x)) - 1
-    
+
     if (length(ps) == 0 || length(pf) == 0) {
       return(NULL)
     }
@@ -86,11 +85,11 @@ proximate_merge <- function(x) {
     "ROW", "Check", "Date", "SRN", "SNR", "ID", "Barcode", "Note", "Result",
     "Reference", "Begin", "End", "Recipe", "Composition", "Images", "spc"
   )
-  
+
   if (length(unique(table(unlist(lproperties)))) != 1 && !all(null_props)) {
     warning("The set of properties seems different across elements")
   }
-  
+
   lnames <- lapply(x, FUN = colnames)
   # std_nms <- colnames(x[[1]])
   std_nms[c(1:grep("Reference", std_nms), grep("Begin", std_nms):length(std_nms))]
@@ -99,7 +98,7 @@ proximate_merge <- function(x) {
     unique(unlist(lproperties)),
     std_nms[c(grep("Begin", std_nms):length(std_nms))]
   )
-  
+
   dfinal <- NULL
   ncnt <- 0
   for (i in seq_along(x)) {
@@ -117,7 +116,7 @@ proximate_merge <- function(x) {
       ith_x <- cbind(ith_x, to_add)
       ith_x <- ith_x[, fnames]
     }
-    
+
     if (i == 1) {
       wavs <- as.numeric(colnames(ith_x$spc))
     } else {
@@ -130,13 +129,13 @@ proximate_merge <- function(x) {
         ties = mean,
         method = "natural"
       )
-      
+
       if (min(ith_wavs) > min(wavs)) {
         bb <- which(wavs >= min(ith_wavs))[1]
         ith_x$spc[, 1:bb] <- NA
         warning("NA(s) have been introduced in the spectra")
       }
-      
+
       if (max(ith_wavs) < max(wavs)) {
         bb <- which(wavs <= max(ith_wavs))
         bb <- bb[length(bb)]

@@ -1,4 +1,3 @@
-
 test_that("Modified pls fitting method is correctly saved", {
   mpls_m <- fit_plsr(15, "modified")
   expect_true(inherits(mpls_m, "fit_plsr"))

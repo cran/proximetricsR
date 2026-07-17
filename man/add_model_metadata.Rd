@@ -4,15 +4,13 @@
 \alias{add_model_metadata}
 \title{A function for adding model metadata to a \code{spectral_model} object}
 \usage{
-add_model_metadata(
-  object, key = UUIDgenerate(), created, changed,
-  name = c("", NULL), sort_order = 1, tol_min = NULL,
-  tol_max = NULL, decimal_places = 2, unit = "",
-  mahal_limit = 5, corrections = c(bias = 0, slope = 1),
-  limit_min = NULL, limit_max = NULL, target = NULL,
-  wavelength_range = c("Nir", "Vis", "Nir+Vis"),
-  predict_type = "Calibration", arguments = rep("", 4)
-)
+add_model_metadata(object, key = UUIDgenerate(), created, changed,
+                   name = c("", NULL), sort_order = 1, tol_min = NULL,
+                   tol_max = NULL, decimal_places = 2, unit = "",
+                   mahal_limit = 5, corrections = c(bias = 0, slope = 1),
+                   limit_min = NULL, limit_max = NULL, target = NULL,
+                   wavelength_range = c("Nir", "Vis", "Nir+Vis"),
+                   predict_type = "Calibration", arguments = rep("", 4))
 }
 \arguments{
 \item{object}{an optional object of class \code{spectral_model}. See details.}

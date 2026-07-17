@@ -87,10 +87,10 @@
 #' model in R itself, as the optimal number of components inside the model
 #' remains the same (but it does influence the exported files). Default is
 #' \code{TRUE}.
-#' @param fixed_components a numerical value indicating a fixed number of 
-#' components to be used in the model (i.e. no optimization of the components). 
-#' The default value is \code{0}, which indicates that the number of components 
-#' is not fixed and it uses the one selected by the function. 
+#' @param fixed_components a numerical value indicating a fixed number of
+#' components to be used in the model (i.e. no optimization of the components).
+#' The default value is \code{0}, which indicates that the number of components
+#' is not fixed and it uses the one selected by the function.
 #' @param replacements a logical. Only used in case \code{validation_type} is
 #' selected as \code{"lgo"}. Specifies if the sampling for the calibration sets
 #' must be done with replacements. See details for a more thorough explanation.
@@ -112,14 +112,15 @@
 #'  \item \strong{Leave-group-out cross-validation (\code{"lgo"}):} The
 #'  data is partitioned into different subsets of similar size. Each partition
 #'  is based on a stratified random sampling using the distribution of the
-#'  response variable. When \code{p} \mjeqn{>=}{\geqslant} 0.5 (i.e.
+#'  response variable. When \code{p} \mjeqn{\ge}{\geqslant} 0.5 (i.e.
 #'  the number of calibration observations to retain is larger than 50% of the
 #'  total samples), the sampling is conducted for selecting the validation
-#'  samples, and when \code{p} < 0.5 the sampling is conducted for selecting the
-#'  calibration samples (samples used for model training). The model fitted with
-#'  the selected calibration samples is used to predict the target response
-#'  variable values of the validation samples. The accuracy and precision,
-#'  indicated by the root mean square error (RMSE) and the coefficient of determination
+#'  samples, and when \code{p} is below 0.5 the sampling is conducted for
+#'  selecting the calibration samples (samples used for model training). The
+#'  model fitted with the selected calibration samples is used to predict the
+#'  target response variable values of the validation samples. The accuracy
+#'  and precision, indicated by the root mean square error (RMSE) and the
+#'  coefficient of determination
 #'  (\mjeqn{R^2}{R^2}) respectively, are computed. This process is repeated
 #'  \mjeqn{m}{m} times (where \mjeqn{m}{m} is controlled by the \code{number}
 #'  argument), and the final RMSE and \mjeqn{R^2}{R^2} are computed as the
@@ -171,20 +172,20 @@
 #'
 #'  \mjdeqn{n_{min} = arg\min_{n} \  RMSE_n}{n_{min} = arg\min_{n} \  RMSE_n},
 #'
-#'  Then, among all \mjeqn{1 < n < n_{min}}{1 < n < n_{min}} fulfilling
+#'  Then, among all \mjteqn{1 < n < n_{min}}{1 \lt n \lt n_{min}}{1 \lt n \lt n_{min}} fulfilling
 #'
-#'  \mjdeqn{RMSE_{n} < RMSE_{n_{min}} \cdot \gamma_{max}}{RMSE_{n} < RMSE_{n_{min}} \cdot \gamma_{max}}
+#'  \mjtdeqn{RMSE_{n} < RMSE_{n_{min}} \cdot \gamma_{max}}{RMSE_{n} \lt RMSE_{n_{min}} \cdot \gamma_{max}}{RMSE_{n} \lt RMSE_{n_{min}} \cdot \gamma_{max}}
 #'
-#'  \mjdeqn{RMSE_{n} < RMSE_{n+1} \cdot \gamma_{seq}}{RMSE_{n} < RMSE_{n+1} \cdot \gamma_{seq}}
+#'  \mjtdeqn{RMSE_{n} < RMSE_{n+1} \cdot \gamma_{seq}}{RMSE_{n} \lt RMSE_{n+1} \cdot \gamma_{seq}}{RMSE_{n} \lt RMSE_{n+1} \cdot \gamma_{seq}}
 #'
 #'  we take the smallest \mjeqn{n}{n} as the optimal number of components.\cr
 #'  For \mjeqn{R^2}{R^2}, a similar approach is taken, but with maxima instead of
-#'  minima: \mjeqn{n_{max} = arg\max_{n} RMSE_n}{n_{max} = arg\max_{n} RMSE_n}
-#'  Then, take the smallest \mjeqn{1 < n < n_{max}}{1 < n < n_{max}} still satisfying
+#'  minima: \mjeqn{n_{max} = arg\max_{n} R^2_n}{n_{max} = arg\max_{n} R^2_n}
+#'  Then, take the smallest \mjteqn{1 < n < n_{max}}{1 \lt n \lt n_{max}}{1 \lt n \lt n_{max}} still satisfying
 #'
-#'  \mjdeqn{R^2_{n} > R^2_{n_{max}} \cdot \gamma_{max}^{-1}}{R^2_{n} > R^2_{n_{max}} \cdot \gamma_{max}^{-1}}
+#'  \mjtdeqn{R^2_{n} > R^2_{n_{max}} \cdot \gamma_{max}^{-1}}{R^2_{n} \gt R^2_{n_{max}} \cdot \gamma_{max}^{-1}}{R^2_{n} \gt R^2_{n_{max}} \cdot \gamma_{max}^{-1}}
 #'
-#'  \mjdeqn{R^2_{n} > R^2_{n+1} \cdot \gamma_{seq}^{-1}}{R^2_{n} > R^2_{n+1} \cdot \gamma_{seq}^{-1}}
+#'  \mjtdeqn{R^2_{n} > R^2_{n+1} \cdot \gamma_{seq}^{-1}}{R^2_{n} \gt R^2_{n+1} \cdot \gamma_{seq}^{-1}}{R^2_{n} \gt R^2_{n+1} \cdot \gamma_{seq}^{-1}}
 #'
 #'  Note that in this case, we take the inverse of the learning rates. Furthermore,
 #'  setting \code{learning_rates = c(1, 1)} retains the
@@ -236,21 +237,21 @@
 #' }
 #' @export
 calibration_control <- function(
-    validation_type = c("lgo", "loo", "kfold", "none"),
-    number = ifelse(validation_type == "lgo", 100, 10),
-    p = 0.75,
-    folds = c("random", "sequential"),
-    tuning_parameter = c("rmse", "rsq", "none"),
-    learning_rates = c(maximum = 1.1, sequential = 1.05),
-    remove_outliers = 0,
-    cal_residual_limit = 2.5,
-    mahalanobis_limit = 5,
-    val_residual_limit = 3.5,
-    allow_parallel = TRUE,
-    fix_pls_factors = TRUE,
-    fixed_components = 0,
-    replacements = TRUE,
-    seed = NULL
+  validation_type = c("lgo", "loo", "kfold", "none"),
+  number = ifelse(validation_type == "lgo", 100, 10),
+  p = 0.75,
+  folds = c("random", "sequential"),
+  tuning_parameter = c("rmse", "rsq", "none"),
+  learning_rates = c(maximum = 1.1, sequential = 1.05),
+  remove_outliers = 0,
+  cal_residual_limit = 2.5,
+  mahalanobis_limit = 5,
+  val_residual_limit = 3.5,
+  allow_parallel = TRUE,
+  fix_pls_factors = TRUE,
+  fixed_components = 0,
+  replacements = TRUE,
+  seed = NULL
 ) {
   validation_type <- match.arg(validation_type)
   folds <- match.arg(folds)

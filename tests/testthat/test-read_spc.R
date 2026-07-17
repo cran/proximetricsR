@@ -7,7 +7,7 @@ spc_mat <- NIRcannabis$spc
 colnames(spc_mat) <- paste0("X", colnames(spc_mat))
 
 base_df <- data.frame(
-  ID  = NIRcannabis$ID,
+  ID = NIRcannabis$ID,
   THC = NIRcannabis$THC,
   spc_mat,
   check.names = FALSE
@@ -18,7 +18,7 @@ write.table(base_df, file = tmp_tab, sep = "\t", row.names = FALSE)
 
 # A second version without the "X" prefix so we can test numeric-column detection.
 base_df_noprefix <- data.frame(
-  ID  = NIRcannabis$ID,
+  ID = NIRcannabis$ID,
   THC = NIRcannabis$THC,
   NIRcannabis$spc,
   check.names = FALSE
@@ -28,7 +28,7 @@ tmp_noprefix <- tempfile(fileext = ".txt")
 write.table(base_df_noprefix, file = tmp_noprefix, sep = "\t", row.names = FALSE)
 
 # A third version for spectra_starts / spectra_ends testing (columns 3 onward).
-tmp_starts <- tmp_tab  # reuse the prefixed file; starts/ends refer to column positions
+tmp_starts <- tmp_tab # reuse the prefixed file; starts/ends refer to column positions
 
 # ─── 1. Class of output is correct ────────────────────────────────────────────
 
@@ -49,7 +49,7 @@ test_that("spectra_prefix selects only columns matching the prefix pattern", {
 
 test_that("spectra_prefix leaves non-spectral columns in the data.frame", {
   result <- read_spc(tmp_tab, spectra_prefix = "X")
-  expect_true("ID"  %in% colnames(result))
+  expect_true("ID" %in% colnames(result))
   expect_true("THC" %in% colnames(result))
 })
 
@@ -99,7 +99,7 @@ test_that("number of spectral columns in spc matches the number of X columns", {
 test_that("non-spectral columns are preserved in the returned data.frame", {
   result <- read_spc(tmp_tab, spectra_prefix = "X")
   expect_true(all(c("ID", "THC") %in% colnames(result)))
-  expect_equal(result$ID,  base_df$ID)
+  expect_equal(result$ID, base_df$ID)
   expect_equal(result$THC, base_df$THC)
 })
 
@@ -122,13 +122,17 @@ test_that("spc column names without a prefix are unchanged (no letters to strip)
 # ─── 8. Error when spectra_prefix is not character ────────────────────────────
 
 test_that("read_spc errors when spectra_prefix is not a character", {
-  expect_error(read_spc(tmp_tab, spectra_prefix = 42),
-               "'spectra_prefix' must be a character")
+  expect_error(
+    read_spc(tmp_tab, spectra_prefix = 42),
+    "'spectra_prefix' must be a character"
+  )
 })
 
 test_that("read_spc errors when spectra_prefix is a logical", {
-  expect_error(read_spc(tmp_tab, spectra_prefix = TRUE),
-               "'spectra_prefix' must be a character")
+  expect_error(
+    read_spc(tmp_tab, spectra_prefix = TRUE),
+    "'spectra_prefix' must be a character"
+  )
 })
 
 # ─── 9. Works with comma separator and different dec ──────────────────────────
@@ -136,7 +140,7 @@ test_that("read_spc errors when spectra_prefix is a logical", {
 test_that("read_spc works with comma separator and comma decimal separator", {
   # Build a small data.frame with European-style decimals.
   small_df <- data.frame(
-    ID  = c("s1", "s2"),
+    ID = c("s1", "s2"),
     X1001.0 = c(0.1, 0.2),
     X1004.0 = c(0.3, 0.4),
     check.names = FALSE
@@ -153,7 +157,7 @@ test_that("read_spc works with comma separator and comma decimal separator", {
 
 test_that("read_spc works with semicolon separator and European decimal", {
   small_df2 <- data.frame(
-    ID   = c("a", "b"),
+    ID = c("a", "b"),
     X1001 = c(1.5, 2.5),
     X1004 = c(3.5, 4.5),
     check.names = FALSE
@@ -168,7 +172,10 @@ test_that("read_spc works with semicolon separator and European decimal", {
   expect_equal(nrow(result), 2L)
 })
 
-on.exit({
-  if (file.exists(tmp_tab))       file.remove(tmp_tab)
-  if (file.exists(tmp_noprefix))  file.remove(tmp_noprefix)
-}, add = TRUE)
+on.exit(
+  {
+    if (file.exists(tmp_tab)) file.remove(tmp_tab)
+    if (file.exists(tmp_noprefix)) file.remove(tmp_noprefix)
+  },
+  add = TRUE
+)

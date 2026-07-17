@@ -52,7 +52,7 @@ This separation of specification and execution enables reproducible, device-awar
 
 ```{r loadlib, results = 'hide', include = FALSE}
 if (!requireNamespace("proximetricsR", quietly = TRUE)) {
-  devtools::load_all()
+  pkgload::load_all()
 }
 library("proximetricsR")
 ```

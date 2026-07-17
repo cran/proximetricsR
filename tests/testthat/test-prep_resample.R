@@ -23,7 +23,7 @@ test_that("Splines returns correct result", {
 test_that("Using the same wavelengths does not change X", {
   X_rand <- matrix(rnorm(500), 5, 100, dimnames = list(NULL, seq(1000, 1699, by = 7)))
   X_pp <- process(X_rand, preprocess_recipe(prep_resample(c(1000, 1699, 7)), device = "unspecified"))
-  attr(X_pp,"processed_wavs") <- attr(X_pp, "preprocess_recipe") <- NULL
+  attr(X_pp, "processed_wavs") <- attr(X_pp, "preprocess_recipe") <- NULL
   expect_equal(X_rand, X_pp)
 })
 

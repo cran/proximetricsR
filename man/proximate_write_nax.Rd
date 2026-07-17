@@ -4,11 +4,9 @@
 \alias{proximate_write_nax}
 \title{Create an application file for the given list of models}
 \usage{
-proximate_write_nax(
-   object, path, metadata, tsv_name, empty_tsv_name, spc = "spc",
-   external_properties = NULL, report = TRUE, verbose = TRUE,
-   internal_prj_path = NULL
-)
+proximate_write_nax(object, path, metadata, tsv_name, empty_tsv_name, 
+                    spc = "spc", external_properties = NULL, report = TRUE, 
+                    verbose = TRUE, internal_prj_path = NULL)
 }
 \arguments{
 \item{object}{a list of objects of class \code{spectral_model}, as generated

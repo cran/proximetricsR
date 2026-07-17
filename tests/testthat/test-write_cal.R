@@ -159,14 +159,14 @@ test_that("Verbose must be a logical", {
 test_that("'path' must be provided", {
   skip_on_cran()
   expect_error(
-    write_cal(empty_object, path = tempdir(), tsv_paths = 1), 
+    write_cal(empty_object, path = tempdir(), tsv_paths = 1),
     "Please provide the paths to the .tsv files as a vector of character strings."
   )
 })
 
 test_that("cal must be a logical", {
   skip_on_cran()
-  expect_error(proximate_write_model(list(),  path = tempdir(), tsv_paths = "", cal = ""), "'cal' must be a logical")
+  expect_error(proximate_write_model(list(), path = tempdir(), tsv_paths = "", cal = ""), "'cal' must be a logical")
 })
 
 test_that("prj must be a logical", {

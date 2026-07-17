@@ -82,7 +82,7 @@ validate_prediction <- function(prediction, reference) {
   # Drop NA's for statistics
   drop_na_preds <- prediction$predictions[!is.na(reference), , drop = FALSE]
   drop_na_refs <- reference[!is.na(reference), , drop = FALSE]
-  
+
   for (i in 1:ncol(prediction$predictions)) {
     pred_resid <- reference - prediction$predictions[, i, drop = FALSE]
     rsq <- cor(drop_na_refs, drop_na_preds[, i, drop = FALSE])^2
@@ -90,7 +90,8 @@ validate_prediction <- function(prediction, reference) {
       sqrt(
         colSums(pred_resid^2, na.rm = TRUE) / apply(pred_resid, MARGIN = 2, FUN = function(x) max(sum(!is.na(x)) - 1, 1))
       ),
-      ncol = 1)
+      ncol = 1
+    )
     max_res <- matrix(apply(pred_resid, MARGIN = 2, FUN = function(x) x[which.max(abs(x))]), ncol = 1)
 
     val_results <- cbind(prediction$predictions[, i, drop = FALSE], pred_resid)

@@ -5,20 +5,19 @@
 \title{A function for adding application metadata to a list of \code{spectral_model}
 objects}
 \usage{
-add_application_metadata(
-  object, key = UUIDgenerate(),
-  name = c(name = "Untitled", alias = NULL),
-  view = c("Up", "Down"), measurement_mode = c("DrIwr", "TrIwr"),
-  measurement_time = 15,
-  absorbmask_low = c(min = 0, max = 0),
-  absorbmask_high = c(min = 0, max = 0),
-  rotate_sample = TRUE,
-  selectable = TRUE, created, changed,
-  composition = NULL,
-  description = "created with proximetricsR",
-  sop = "",
-  presentation_id = "Default"
-)
+add_application_metadata(object, key = UUIDgenerate(),
+                         name = c(name = "Untitled", alias = NULL),
+                         view = c("Up", "Down"), 
+                         measurement_mode = c("DrIwr", "TrIwr"),
+                         measurement_time = 15,
+                         absorbmask_low = c(min = 0, max = 0),
+                         absorbmask_high = c(min = 0, max = 0),
+                         rotate_sample = TRUE,
+                         selectable = TRUE, created, changed,
+                         composition = NULL,
+                         description = "created with proximetricsR",
+                         sop = "",
+                         presentation_id = "Default")
 }
 \arguments{
 \item{object}{an optional object, consisting of a list of objects

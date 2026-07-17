@@ -290,7 +290,6 @@ test_that("Model provided with X and Y must be similar to formula", {
   model_xy_copy2$metadata$Changed <- model1$metadata$Changed
 
 
-
   expect_identical(model_xy_copy2, model1_copy)
 })
 

@@ -1,18 +1,19 @@
 #' @title Extract the property names from a given `data.frame`
-#' 
+#'
 #' @description
 #' This function aims to extract the column names of properties from `x`. A property
 #' in this context is a response vector of numerical values that then later can
 #' be calibrated for predictions (such as with \code{\link{calibrate}}).
-#' 
-#' @param x a `data.frame`, as normally obtained by \code{\link{proximate_read_data}}, \code{\link{read_spc}},
+#'
+#' @param x a `data.frame`, as normally obtained by 
+#' \code{\link{proximate_read_data}}, \code{\link{read_spc}},
 #' \code{\link{proxiscout_read_data}}, or some other data parsing function.
-#' 
+#'
 #' @details
 #' Depending on the `class` of `x`,  the names of the properties are identified
 #' differently. For all cases, only columns which contain numerical values
 #' (including `NA`) are considered as potential properties.
-#' 
+#'
 #' If `x` is of class `proximate_data`, the property names are identified as follows:
 #' \itemize{
 #'   \item{}{Located between columns "Reference" and "Begin".}
@@ -21,7 +22,7 @@
 #'           "Begin", "End", "Recipe", "Composition", "Images", "spc".}
 #'   \item{}{Contain only numerical values (including NA).}
 #' }
-#' 
+#'
 #' If `x` is of class `proxiscout_data`, property names are identified as columns that
 #' contain only numerical values (including `NA`) and are not matched by any of the
 #' following, case-insensitive regex (each wrapped by `^` and `$`):
@@ -43,9 +44,9 @@
 #'   \item{}{`spc`}
 #'   \item{}{`predictions`}
 #' }
-#' 
+#'
 #' If `x` is of neither class, all columns with numerical values are considered to be properties
-#' 
+#'
 #' @return A character vector, containing only the names of numerical properties.
 #' If no property names were identified, return a character vector of length 0.
 #' @export
@@ -81,7 +82,7 @@ extract_property_names <- function(x) {
       "spc",
       "predictions"
     )
-    
+
     # Combine patterns into single regex
     pattern <- paste0("^(", paste(exclude_patterns, collapse = "|"), ")$")
     property_names <- colnames(x)[!grepl(pattern, colnames(x), ignore.case = TRUE)]

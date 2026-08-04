@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Leonardo Ramirez-Lopez and Claudio Orellano">
-<meta name="dcterms.date" content="2026-07-18">
+<meta name="dcterms.date" content="2026-08-01">
 
 <title>ProxiMate: Building applications</title>
 <style>
@@ -211,7 +211,7 @@ text-decoration: underline; }
 <h1 class="title">ProxiMate: Building applications</h1>
 <p class="author">Leonardo Ramirez-Lopez and Claudio Orellano</p>
 
-<p class="date">2026-07-18</p>
+<p class="date">2026-08-01</p>
 </header>
 
 <nav id="TOC" role="doc-toc">
@@ -731,9 +731,19 @@ Suggested models:
 </div>
 <p>A comprehensive set of interactive plots describing each model can be obtained by:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(optimized_app<span class="sc">$</span>final_models<span class="sc">$</span><span class="st">`</span><span class="at">Protein ~ spc</span><span class="st">`</span>, <span class="at">selection =</span> <span class="st">&quot;all&quot;</span>)</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(optimized_app<span class="sc">$</span>final_models<span class="sc">$</span><span class="st">`</span><span class="at">Moisture ~ spc</span><span class="st">`</span>, <span class="at">selection =</span> <span class="st">&quot;all&quot;</span>)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  optimized_app<span class="sc">$</span>final_models<span class="sc">$</span><span class="st">`</span><span class="at">Protein ~ spc</span><span class="st">`</span>,  </span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">spectral =</span> <span class="st">&quot;all&quot;</span>, </span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">cv =</span> <span class="st">&quot;all&quot;</span>, </span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">validation =</span> <span class="st">&quot;all&quot;</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="co"># and</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>  optimized_app<span class="sc">$</span>final_models<span class="sc">$</span><span class="st">`</span><span class="at">Moisture ~ spc</span><span class="st">`</span>,  </span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">spectral =</span> <span class="st">&quot;all&quot;</span>, </span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">cv =</span> <span class="st">&quot;all&quot;</span>, </span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">validation =</span> <span class="st">&quot;all&quot;</span></span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <p>Applying the <code>plot()</code> function on a model produces a HTML file which is immediately loaded and shown in a browser.</p>
 <p>The summary table of the optimization can be accessed by:</p>
@@ -913,7 +923,12 @@ Suggested models:
 <span id="cb59-21"><a href="#cb59-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">decimal_places =</span> <span class="dv">2</span></span>
 <span id="cb59-22"><a href="#cb59-22" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb59-23"><a href="#cb59-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-24"><a href="#cb59-24" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(protein_model, <span class="at">selection =</span> <span class="st">&quot;all&quot;</span>)</span></code></pre></div>
+<span id="cb59-24"><a href="#cb59-24" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb59-25"><a href="#cb59-25" aria-hidden="true" tabindex="-1"></a>  protein_model,</span>
+<span id="cb59-26"><a href="#cb59-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">spectral =</span> <span class="st">&quot;all&quot;</span>, </span>
+<span id="cb59-27"><a href="#cb59-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">cv =</span> <span class="st">&quot;all&quot;</span>, </span>
+<span id="cb59-28"><a href="#cb59-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">validation =</span> <span class="st">&quot;all&quot;</span></span>
+<span id="cb59-29"><a href="#cb59-29" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <p>The fitted model can also be used to make predictions on new data. Just for demonstration purposes, here we will use the <code>mdata</code> data set (the one used for model building) to show how predictions can be obtain from the model applied on spectra:</p>
 <div class="cell">
